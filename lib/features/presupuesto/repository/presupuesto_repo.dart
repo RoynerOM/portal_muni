@@ -25,6 +25,7 @@ class PresupuestoRepository {
     request.fields['tipo'] = model.tipo;
     request.fields['fecha'] = model.fecha;
     request.fields['nombre'] = model.nombre;
+    request.fields['categoria'] = model.categoria;
     request.files.add(await http.MultipartFile.fromPath('url', file.path));
 
     var response = await request.send();

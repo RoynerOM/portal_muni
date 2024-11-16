@@ -11,6 +11,7 @@ class PresupuestoModel {
   String fecha;
   String url;
   String nombre;
+  String categoria;
 
   PresupuestoModel({
     required this.id,
@@ -19,6 +20,7 @@ class PresupuestoModel {
     required this.fecha,
     required this.url,
     required this.nombre,
+    required this.categoria,
   });
 
   factory PresupuestoModel.fromJson(Map<String, dynamic> json) =>
@@ -29,6 +31,7 @@ class PresupuestoModel {
         fecha: json["fecha"] ?? '',
         url: json["url"] ?? '',
         nombre: json["nombre"] ?? '',
+        categoria: json["categoria"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,5 +40,6 @@ class PresupuestoModel {
         "fecha": fecha,
         "url": url,
         "nombre": nombre,
+        "categoria": categoria,
       };
 }

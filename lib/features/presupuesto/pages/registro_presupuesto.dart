@@ -5,8 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:portal_muni/app/dialog/banner_ui.dart';
 import 'package:portal_muni/app/scroll/center_scroll.dart';
-import 'package:portal_muni/app/text_field/helpers/mask.dart';
-import 'package:portal_muni/app/text_field/text_field_ui.dart';
+import 'package:portal_muni/app/text_field/text_field.dart';
 import 'package:portal_muni/core/utils/hexcolor.dart';
 import 'package:portal_muni/features/presupuesto/bloc/presupuesto_bloc.dart';
 import 'package:portal_muni/features/presupuesto/models/presupuesto_model.dart';
@@ -27,7 +26,8 @@ class _RegistroPresupuestoPageState extends State<RegistroPresupuestoPage> {
   final _nameController = TextEditingController();
   final _urlController = TextEditingController();
   final _docController = TextEditingController();
-
+  final _categoryController = TextEditingController();
+  String prefix = '';
   File? _selectedFile;
 
   void clear() {
@@ -36,6 +36,8 @@ class _RegistroPresupuestoPageState extends State<RegistroPresupuestoPage> {
     _urlController.clear();
     _yearController.clear();
     _fechaController.clear();
+    _categoryController.clear();
+    _docController.clear();
   }
 
   Future<void> _selectFile() async {
@@ -63,6 +65,7 @@ class _RegistroPresupuestoPageState extends State<RegistroPresupuestoPage> {
         listener: (context, state) {
           if (state.react == React.postSuccess) {
             showAlertSuccess('Ok', 'Elemento guardado!');
+            clear();
           }
           if (state.react == React.postError) {
             showAlertError('Error', 'No se pudo guardar');
@@ -81,6 +84,31 @@ class _RegistroPresupuestoPageState extends State<RegistroPresupuestoPage> {
               key: _formKey,
               child: Column(
                 children: [
+                  if (widget.tipo == 'Aprobado')
+                    InputSelect(
+                      labelText: 'Tipo de presupuesto',
+                      controller: _categoryController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Por favor, selecciona un tipo';
+                        }
+                        return null;
+                      },
+                      options: [
+                        Option(value: 'Ordinario'),
+                        Option(value: 'Extraordinario'),
+                        Option(value: 'Modificación Presupuestaria')
+                      ],
+                      onChanged: (Option value) {
+                        setState(() {
+                          prefix = 'Presupuesto ${value.value} ';
+                          if (value.value == 'Modificación Presupuestaria') {
+                            prefix = '${value.value} ';
+                          }
+                          _nameController.text = prefix;
+                        });
+                      },
+                    ),
                   Input(
                     labelText: 'Nombre del Documento',
                     controller: _nameController,
@@ -129,11 +157,12 @@ class _RegistroPresupuestoPageState extends State<RegistroPresupuestoPage> {
                     documento: _selectedFile,
                     model: PresupuestoModel(
                       id: '',
-                      year: _yearController.text,
+                      categoria: _categoryController.text.trim(),
+                      year: _yearController.text.trim(),
                       tipo: widget.tipo,
                       fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
                       url: '',
-                      nombre: _nameController.text,
+                      nombre: _nameController.text.trim(),
                     ),
                   ),
                   const SizedBox(height: 20),

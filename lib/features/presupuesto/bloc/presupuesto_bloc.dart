@@ -62,12 +62,12 @@ class PresupuestoBloc extends Bloc<PresupuestoEvent, PresupuestoState> {
     try {
       final filter = state.list.where((x) {
         final coincideNombre = x.nombre.toLowerCase().contains(nombreFiltro);
-        final coincideTipo = x.tipo.toLowerCase() == (tipoFiltro);
+        final coincideTipo = x.categoria.toLowerCase() == (tipoFiltro);
 
         if (tipoFiltro == 'todos') {
           return coincideNombre || coincideTipo;
         } else {
-          final coincideTipo = x.tipo.toLowerCase().contains(tipoFiltro);
+          final coincideTipo = x.categoria.toLowerCase() == (tipoFiltro);
           return coincideNombre && coincideTipo;
         }
       }).toList();

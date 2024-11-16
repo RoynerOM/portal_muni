@@ -4,6 +4,7 @@ import 'package:portal_muni/core/utils/hexcolor.dart';
 class PresupuestoItem extends StatelessWidget {
   final String nombre;
   final String tipo;
+  final String categoria;
   final VoidCallback onDelete;
 
   const PresupuestoItem({
@@ -11,6 +12,7 @@ class PresupuestoItem extends StatelessWidget {
     required this.nombre,
     required this.tipo,
     required this.onDelete,
+    required this.categoria,
   });
 
   @override
@@ -38,7 +40,7 @@ class PresupuestoItem extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-          tipo,
+          categoria,
           style: TextStyle(color: Colors.grey[600]),
         ),
         trailing: IconButton(

@@ -71,6 +71,7 @@ class PresupuestoPage extends StatelessWidget {
                       child: PresupuestoItem(
                         nombre: state.filterList[index].nombre.split('.').first,
                         tipo: state.filterList[index].tipo,
+                        categoria: state.filterList[index].categoria,
                         onDelete: () {
                           BlocProvider.of<PresupuestoBloc>(context).add(
                             DeletePresupuestoEvent(state.filterList[index].id),

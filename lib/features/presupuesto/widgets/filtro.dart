@@ -56,8 +56,9 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
                   controller: tipoController,
                   onChanged: (value) {},
                   options: [
-                    Option(value: 'Proyectado'),
-                    Option(value: 'Aprobado'),
+                    Option(value: 'Ordinario'),
+                    Option(value: 'Extraordinario'),
+                    Option(value: 'Modificación Presupuestaria'),
                     Option(value: 'Todos'),
                   ],
                 ),
