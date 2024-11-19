@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portal_muni/app/dialog/banner_ui.dart';
 import 'package:portal_muni/app/scroll/custom_scroll.dart';
 import 'package:portal_muni/app/spinner/dual_ring.dart';
+import 'package:portal_muni/app/tile/sheet_tile.dart';
 import 'package:portal_muni/core/utils/device.dart';
 import 'package:portal_muni/core/utils/hexcolor.dart';
 import 'package:portal_muni/features/presupuesto/bloc/presupuesto_bloc.dart';
 import 'package:portal_muni/features/presupuesto/pages/registro_presupuesto.dart';
 import 'package:portal_muni/features/presupuesto/widgets/filtro.dart';
-import 'package:portal_muni/features/presupuesto/widgets/presupuesto_list_tile.dart';
 import 'package:portal_muni/features/presupuesto/widgets/presupusto_item.dart';
 
 class PresupuestoPage extends StatelessWidget {
@@ -95,7 +95,7 @@ class PresupuestoPage extends StatelessWidget {
             context: context,
             builder: (context) => Wrap(
               children: [
-                PresupuestoListTile(
+                SheetTile(
                   title: 'Nuevo Presupuesto Proyectado',
                   icon: Icons.add,
                   onTap: () {
@@ -109,7 +109,7 @@ class PresupuestoPage extends StatelessWidget {
                     );
                   },
                 ),
-                PresupuestoListTile(
+                SheetTile(
                   title: 'Nuevo Presupuesto Aprobado',
                   icon: Icons.add,
                   onTap: () {

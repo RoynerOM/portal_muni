@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:portal_muni/core/utils/hexcolor.dart';
 
-class PresupuestoListTile extends StatelessWidget {
+class SheetTile extends StatelessWidget {
   final String title;
   final IconData icon;
   final VoidCallback onTap;
 
-  const PresupuestoListTile({
+  const SheetTile({
     super.key,
     required this.title,
     required this.icon,
@@ -20,7 +20,6 @@ class PresupuestoListTile extends StatelessWidget {
       child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        //color: Colors.blueGrey[50],
         color: Colors.white,
         child: InkWell(
           borderRadius: BorderRadius.circular(10),

@@ -21,7 +21,13 @@ enum AppScreens {
   eliminarReporteFinanciero('Eliminar Reporte Financiero'),
 
   // Planes y cumplimiento
-  planesCumplimiento('Planes y cumplimiento');
+  planesCumplimiento('Planes y cumplimiento'),
+  planesInstitucionales('Planes Institucionales'),
+  planesEstrategicoMunicipal('Plan estratégico municipal'),
+  planesAnualOperativo('Plan anual operativo'),
+  planesSectoriales('Otros planes específicos o sectoriales'),
+  //
+  cumplimientoPlanesInstitucionales('Cumplimiento de planes institucionales');
 
   final String name;
   const AppScreens(this.name);

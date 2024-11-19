@@ -6,13 +6,13 @@ import 'package:portal_muni/app/spinner/dual_ring.dart';
 import 'package:portal_muni/app/tile/sheet_tile.dart';
 import 'package:portal_muni/core/utils/device.dart';
 import 'package:portal_muni/core/utils/hexcolor.dart';
-import 'package:portal_muni/features/ejecucion/bloc/ejecucion_bloc.dart';
-import 'package:portal_muni/features/ejecucion/pages/registro_ejecuciones.dart';
-import 'package:portal_muni/features/ejecucion/widgets/ejecucion_item.dart';
-import 'package:portal_muni/features/ejecucion/widgets/filtro.dart';
+import 'package:portal_muni/features/plan_institucional/bloc/plan_institucional_bloc.dart';
+import 'package:portal_muni/features/plan_institucional/pages/registro_plan_institucional.dart';
+import 'package:portal_muni/features/plan_institucional/widgets/ejecucion_item.dart';
+import 'package:portal_muni/features/plan_institucional/widgets/filtro.dart';
 
-class EjecucionesPage extends StatelessWidget {
-  const EjecucionesPage({super.key});
+class PlanesInstitucionales extends StatelessWidget {
+  const PlanesInstitucionales({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +28,9 @@ class EjecucionesPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Ejecuciones de Presupuesto'),
+        title: const Text('Planes Institucionales'),
       ),
-      body: BlocConsumer<EjecucionBloc, EjecucionState>(
+      body: BlocConsumer<PlanInstitucionalBloc, PlanInstitucionalState>(
         listener: (context, state) {
           if (state.react == React.deleteSuccess) {
             showAlertSuccess('Ok', 'Elemento eliminado!');
@@ -43,13 +43,13 @@ class EjecucionesPage extends StatelessWidget {
           if (state.react == React.initial || state.react == React.getLoading) {
             return const Center(
               child: DualRing(
-                message: 'Cargando Ejecuciones Presupuestarias',
+                message: 'Cargando Planes Institucionales',
               ),
             );
           } else if (state.react == React.deleteLoading) {
             return const Center(
               child: DualRing(
-                message: 'Eliminado Ejecucion Presupuestaria',
+                message: 'Eliminado Plan Institucional',
               ),
             );
           }
@@ -70,15 +70,13 @@ class EjecucionesPage extends StatelessWidget {
                     return CenterChildList(
                       child: EjecucionItem(
                         nombre: state.filterList[index].nombre.split('.').first,
-                        tipo: state.filterList[index].tipo,
+                        year: state.filterList[index].year,
                         onDelete: () {
-                          BlocProvider.of<EjecucionBloc>(context).add(
-                            DeleteEjecucionEvent(state.filterList[index].id),
+                          BlocProvider.of<PlanInstitucionalBloc>(context).add(
+                            DeletePlanInstitucionalEvt(
+                                state.filterList[index].id),
                           );
                         },
-                        esHistorio: state.filterList[index].esHistorico == '0'
-                            ? ''
-                            : 'Histórico',
                       ),
                     );
                   },
@@ -96,11 +94,11 @@ class EjecucionesPage extends StatelessWidget {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            constraints: const BoxConstraints(maxWidth: 800, maxHeight: 420),
+            constraints: const BoxConstraints(maxWidth: 800, maxHeight: 320),
             builder: (context) => ListView(
               children: [
                 SheetTile(
-                  title: 'Nuevo Informe Parcial',
+                  title: 'Plan estratégico/ institucional',
                   icon: Icons.add,
                   onTap: () {
                     Navigator.pop(context);
@@ -108,42 +106,15 @@ class EjecucionesPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            const RegistroEjecucionPage(tipo: 'Parcial'),
-                      ),
-                    );
-                  },
-                ),
-                SheetTile(
-                  title: 'Nuevo Informe de Fin de Año',
-                  icon: Icons.add,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const RegistroEjecucionPage(tipo: 'Final'),
-                      ),
-                    );
-                  },
-                ),
-                SheetTile(
-                  title: 'Nuevo Histórico Aprobado y Ejecutado',
-                  icon: Icons.add,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegistroEjecucionPage(
-                          tipo: 'Histórico',
+                            const RegistroPlanInstitucionalPage(
+                          tipo: 'Plan estratégico/ institucional',
                         ),
                       ),
                     );
                   },
                 ),
                 SheetTile(
-                  title: 'Nueva Auditoría del Gasto Público',
+                  title: 'Plan anual operativo',
                   icon: Icons.add,
                   onTap: () {
                     Navigator.pop(context);
@@ -151,7 +122,25 @@ class EjecucionesPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            const RegistroEjecucionPage(tipo: 'Auditorías'),
+                            const RegistroPlanInstitucionalPage(
+                          tipo: 'Plan anual operativo',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                SheetTile(
+                  title: 'Otros planes específicos o sectoriales',
+                  icon: Icons.add,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const RegistroPlanInstitucionalPage(
+                          tipo: 'Otros planes específicos o sectoriales',
+                        ),
                       ),
                     );
                   },
