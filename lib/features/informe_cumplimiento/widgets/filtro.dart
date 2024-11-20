@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portal_muni/app/text_field/text_field.dart';
 import 'package:portal_muni/core/utils/device.dart';
 import 'package:portal_muni/core/utils/hexcolor.dart';
-import 'package:portal_muni/features/plan_institucional/bloc/plan_institucional_bloc.dart';
+import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimiento_bloc.dart';
 
 class FiltrosBusqueda extends StatefulWidget {
   const FiltrosBusqueda({super.key});
@@ -59,9 +59,12 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
                     prefixIcon: Icon(Icons.search),
                   ),
                   options: [
-                    Option(value: 'Plan estratégico/ institucional'),
-                    Option(value: 'Plan Anual Operativo'),
-                    Option(value: 'Otros planes específicos o sectoriales')
+                    Option(value: 'Informes de cumplimiento'),
+                    Option(value: 'Informe anual de gestión'),
+                    Option(value: 'Informe final de gestión'),
+                    Option(value: 'Histórico de informes anuales'),
+                    Option(
+                        value: 'Informes de seguimiento a las recomendaciones')
                   ],
                   onChanged: (Option value) {},
                 ),
@@ -94,7 +97,7 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
                     ),
                   ),
                   onPressed: () {
-                    BlocProvider.of<PlanInstitucionalBloc>(context).add(
+                    BlocProvider.of<InformeCumplimientoBloc>(context).add(
                       FiltrosEvt(
                         nombreController.text,
                         yearController.text,
