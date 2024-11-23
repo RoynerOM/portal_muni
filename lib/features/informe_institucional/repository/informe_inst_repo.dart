@@ -20,6 +20,7 @@ class InformeInstRepo {
   }
 
   Future<void> post(File file, InformeInstModel model) async {
+    print(model.toJson());
     var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
     request.fields['tipo'] = model.tipo;
     request.fields['fecha'] = model.fecha;

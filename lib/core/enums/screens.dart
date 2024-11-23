@@ -27,7 +27,19 @@ enum AppScreens {
   planesAnualOperativo('Plan anual operativo'),
   planesSectoriales('Otros planes específicos o sectoriales'),
   //
-  cumplimientoPlanesInstitucionales('Cumplimiento de planes institucionales');
+  cumplimientoPlanesInstitucionales('Cumplimiento de planes institucionales'),
+  // Informes institucionales
+  informesInstitucionalesPersonal('Informes institucionales y de personal'),
+  informesInstitucionales('Informes Institucionales'),
+  informesInstitucionalesEspecialesAuditoria(
+      'Informes Especiales de Auditoría'),
+  informesAnualesAuditoria('Informes anuales de auditoría'),
+  historicoInformesAuditoria('Histórico de informes de auditoría'),
+  informeArchivo('Informe del archivo institucional'),
+  informeCalificacionPersonal('Informes de calificación del personal'),
+//
+  informesPersonalInstitucional('Informes de personal institucional');
+  //
 
   final String name;
   const AppScreens(this.name);

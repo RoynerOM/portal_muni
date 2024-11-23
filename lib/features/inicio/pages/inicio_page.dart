@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portal_muni/core/enums/screens.dart';
 import 'package:portal_muni/features/ejecucion/pages/ejecuciones.dart';
 import 'package:portal_muni/features/informe_cumplimiento/pages/informes_cumplimientos.dart';
+import 'package:portal_muni/features/informe_institucional/pages/informes_institucionales.dart';
 import 'package:portal_muni/features/inicio/bloc/acceso_bloc.dart';
 import 'package:portal_muni/features/plan_institucional/pages/planes_institucionales.dart';
 import 'package:portal_muni/features/presupuesto/pages/presupuesto.dart';
@@ -77,6 +78,25 @@ class _MenuScreenState extends State<MenuScreen> {
                                 accesos))
                               _Submodulo(
                                   'Cumplimiento de planes institucionales'),
+                          ],
+                        ),
+                      ),
+                    if (validarAcceso(
+                        AppScreens.informesInstitucionalesPersonal, accesos))
+                      CenterChildList(
+                        child: _crearModulo(
+                          'Informes institucionales y de personal',
+                          Icons.account_balance_wallet,
+                          context,
+                          Colors.blueAccent,
+                          [
+                            if (validarAcceso(
+                                AppScreens.informesInstitucionales, accesos))
+                              _Submodulo('Informes Institucionales'),
+                            if (validarAcceso(
+                                AppScreens.informesPersonalInstitucional,
+                                accesos))
+                              _Submodulo('Informes de personal institucional'),
                           ],
                         ),
                       ), /*
@@ -233,6 +253,10 @@ class PantallaView extends StatelessWidget {
 
     if (AppScreens.cumplimientoPlanesInstitucionales.name == moduloNombre) {
       return const InformesCumplimientos();
+    }
+
+    if (AppScreens.informesInstitucionales.name == moduloNombre) {
+      return const InformesInstitucionales();
     }
 
     return Scaffold(
