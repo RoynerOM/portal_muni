@@ -1,25 +1,25 @@
-import 'package:portal_muni/features/plan_institucional/models/plan_institucional_model.dart';
+import 'package:portal_muni/features/informe_institucional/models/informe_ins_model.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
-class PlanInstitucionalRepo {
+class InformeInstRepo {
   final String apiUrl =
-      'https://muniupala.go.cr/portal/api/plan_institucional.php';
+      'https://muniupala.go.cr/portal/api/informe_institucional.php';
 
-  Future<List<PlanInstitucionalModel>> getAll() async {
+  Future<List<InformeInstModel>> getAll() async {
     final response = await http.get(Uri.parse(apiUrl));
 
     if (response.statusCode == 200) {
       List<dynamic> body = json.decode(response.body);
 
-      return body.map((json) => PlanInstitucionalModel.fromJson(json)).toList();
+      return body.map((json) => InformeInstModel.fromJson(json)).toList();
     } else {
       throw Exception('Error al obtener los planes');
     }
   }
 
-  Future<void> post(File file, PlanInstitucionalModel model) async {
+  Future<void> post(File file, InformeInstModel model) async {
     var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
     request.fields['tipo'] = model.tipo;
     request.fields['fecha'] = model.fecha;
