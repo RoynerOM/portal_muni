@@ -1,25 +1,25 @@
-import 'package:portal_muni/features/informe_institucional/models/informe_ins_model.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:portal_muni/features/informe_personal/models/informe_personal_model.dart';
 
-class InformeInstRepo {
+class InformePersonalRepo {
   final String apiUrl =
-      'https://muniupala.go.cr/portal/api/informe_institucional.php';
+      'https://muniupala.go.cr/portal/api/informe_personal.php';
 
-  Future<List<InformeInstModel>> getAll() async {
+  Future<List<InformePersonalModel>> getAll() async {
     final response = await http.get(Uri.parse(apiUrl));
 
     if (response.statusCode == 200) {
       List<dynamic> body = json.decode(response.body);
 
-      return body.map((json) => InformeInstModel.fromJson(json)).toList();
+      return body.map((json) => InformePersonalModel.fromJson(json)).toList();
     } else {
       throw Exception('Error al obtener los planes');
     }
   }
 
-  Future<void> post(File file, InformeInstModel model) async {
+  Future<void> post(File file, InformePersonalModel model) async {
     var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
     request.fields['tipo'] = model.tipo;
     request.fields['fecha'] = model.fecha;
@@ -44,7 +44,7 @@ class InformeInstRepo {
     );
 
     if (response.statusCode != 200) {
-      throw Exception('Error al eliminar informacion del plan');
+      throw Exception('Error al eliminar informacion del informe');
     }
   }
 }

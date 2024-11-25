@@ -38,7 +38,9 @@ enum AppScreens {
   informeArchivo('Informe del archivo institucional'),
   informeCalificacionPersonal('Informes de calificación del personal'),
 //
-  informesPersonalInstitucional('Informes de personal institucional');
+  informesPersonalInstitucional('Informes de personal institucional'),
+  actividadesJerarcas('Programa de actividades de jerarcas'),
+  informesViajes('Informes de viajes');
   //
 
   final String name;

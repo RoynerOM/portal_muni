@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portal_muni/core/enums/screens.dart';
+import 'package:portal_muni/core/utils/hexcolor.dart';
 import 'package:portal_muni/features/ejecucion/pages/ejecuciones.dart';
 import 'package:portal_muni/features/informe_cumplimiento/pages/informes_cumplimientos.dart';
 import 'package:portal_muni/features/informe_institucional/pages/informes_institucionales.dart';
+import 'package:portal_muni/features/informe_personal/pages/informes_personal.dart';
 import 'package:portal_muni/features/inicio/bloc/acceso_bloc.dart';
 import 'package:portal_muni/features/plan_institucional/pages/planes_institucionales.dart';
 import 'package:portal_muni/features/presupuesto/pages/presupuesto.dart';
@@ -47,7 +49,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           'Finanzas Públicas',
                           Icons.account_balance_wallet,
                           context,
-                          Colors.blueAccent,
+                          HexColor('003366'),
                           [
                             if (validarAcceso(
                                 AppScreens.presupuestoProyectadoAprobado,
@@ -68,7 +70,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           'Planes y cumplimiento',
                           Icons.account_balance_wallet,
                           context,
-                          Colors.blueAccent,
+                          HexColor('FFA500'),
                           [
                             if (validarAcceso(
                                 AppScreens.planesInstitucionales, accesos))
@@ -88,7 +90,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           'Informes institucionales y de personal',
                           Icons.account_balance_wallet,
                           context,
-                          Colors.blueAccent,
+                          HexColor('ADD8E6'),
                           [
                             if (validarAcceso(
                                 AppScreens.informesInstitucionales, accesos))
@@ -149,7 +151,7 @@ class _MenuScreenState extends State<MenuScreen> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      color: Colors.black87,
+      color: Colors.black.withOpacity(0.6),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
@@ -257,6 +259,10 @@ class PantallaView extends StatelessWidget {
 
     if (AppScreens.informesInstitucionales.name == moduloNombre) {
       return const InformesInstitucionales();
+    }
+
+    if (AppScreens.informesPersonalInstitucional.name == moduloNombre) {
+      return const InformesDePersonal();
     }
 
     return Scaffold(

@@ -5,6 +5,7 @@ import 'package:portal_muni/core/utils/hexcolor.dart';
 import 'package:portal_muni/features/ejecucion/bloc/ejecucion_bloc.dart';
 import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimiento_bloc.dart';
 import 'package:portal_muni/features/informe_institucional/bloc/informe_institucional_bloc.dart';
+import 'package:portal_muni/features/informe_personal/bloc/informe_personal_bloc.dart';
 import 'package:portal_muni/features/inicio/bloc/acceso_bloc.dart';
 import 'package:portal_muni/features/inicio/pages/inicio_page.dart';
 import 'package:portal_muni/features/plan_institucional/bloc/plan_institucional_bloc.dart';
@@ -48,6 +49,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<InformeInstitucionalBloc>(
           create: (context) => sl()..add(LoadInformeInstitucionalEvt()),
+        ),
+        BlocProvider<InformePersonalBloc>(
+          create: (context) => sl()..add(LoadInformePersonalEvt()),
         ),
       ],
       child: MaterialApp(

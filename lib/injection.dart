@@ -5,6 +5,8 @@ import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimie
 import 'package:portal_muni/features/informe_cumplimiento/repository/informe_cumplimiento_repo.dart';
 import 'package:portal_muni/features/informe_institucional/bloc/informe_institucional_bloc.dart';
 import 'package:portal_muni/features/informe_institucional/repository/informe_inst_repo.dart';
+import 'package:portal_muni/features/informe_personal/bloc/informe_personal_bloc.dart';
+import 'package:portal_muni/features/informe_personal/repository/informe_personal_repo.dart';
 import 'package:portal_muni/features/inicio/bloc/acceso_bloc.dart';
 import 'package:portal_muni/features/plan_institucional/bloc/plan_institucional_bloc.dart';
 import 'package:portal_muni/features/plan_institucional/repository/plan_institucional_repo.dart';
@@ -37,4 +39,7 @@ Future<void> injection() async {
   sl.registerSingleton<InformeInstRepo>(InformeInstRepo());
   sl.registerFactory<InformeInstitucionalBloc>(
       () => InformeInstitucionalBloc(sl()));
+  //
+  sl.registerSingleton<InformePersonalRepo>(InformePersonalRepo());
+  sl.registerFactory<InformePersonalBloc>(() => InformePersonalBloc(sl()));
 }
