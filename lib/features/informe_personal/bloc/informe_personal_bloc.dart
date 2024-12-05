@@ -34,9 +34,6 @@ class InformePersonalBloc
     });
 
     on<FiltrosEvt>((event, emit) async {
-      print(event.nombre);
-      print(event.year);
-      print(event.tipo);
       emit(InformePersonalState().copyWith(state, react: React.getLoading));
       await filtros(event, emit);
     });
