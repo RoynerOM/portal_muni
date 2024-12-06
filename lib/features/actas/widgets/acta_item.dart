@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+
+import 'package:portal_muni/core/utils/helpers.dart';
 import 'package:portal_muni/core/utils/hexcolor.dart';
 
 class ActaItem extends StatelessWidget {
   final String nombre;
   final String year;
-
+  final bool isActa;
   final VoidCallback onDelete;
 
   const ActaItem({
@@ -12,6 +14,7 @@ class ActaItem extends StatelessWidget {
     required this.nombre,
     required this.year,
     required this.onDelete,
+    this.isActa = true,
   });
 
   @override
@@ -39,7 +42,7 @@ class ActaItem extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-          year,
+          isActa ? year : formatFechaCorta(DateTime.parse(year)),
           style: TextStyle(color: Colors.grey[600]),
         ),
         trailing: IconButton(
@@ -69,8 +72,8 @@ class ActaItem extends StatelessWidget {
             nombre,
             style: const TextStyle(fontWeight: FontWeight.w700),
           ),
-          content: const Text(
-            '¿Estás seguro de que quieres eliminar este informe?',
+          content: Text(
+            '¿Estás seguro de que quieres eliminar ${isActa ? 'esta acta' : 'este acuerdo'}?',
           ),
           actions: [
             TextButton(

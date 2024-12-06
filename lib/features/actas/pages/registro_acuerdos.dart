@@ -10,21 +10,23 @@ import 'package:portal_muni/core/utils/helpers.dart';
 import 'package:portal_muni/core/utils/hexcolor.dart';
 import 'package:portal_muni/features/actas/bloc/actas_bloc.dart';
 import 'package:portal_muni/features/actas/models/acta_model.dart';
+import 'package:portal_muni/features/actas/models/acuerdo_model.dart';
 
-class RegistroActa extends StatefulWidget {
-  const RegistroActa({super.key, required this.tipo});
-  final String tipo;
+class RegistroAcuerdos extends StatefulWidget {
+  const RegistroAcuerdos({super.key});
+
   @override
-  State<RegistroActa> createState() => _RegistroActaState();
+  State<RegistroAcuerdos> createState() => _RegistroAcuerdosState();
 }
 
-class _RegistroActaState extends State<RegistroActa> {
+class _RegistroAcuerdosState extends State<RegistroAcuerdos> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _urlController = TextEditingController();
   final _docController = TextEditingController();
   final _yearController = TextEditingController();
-
+  final _actaController = TextEditingController();
+  String? actaId;
   File? _selectedFile;
   void clear() {
     _urlController.clear();
@@ -56,7 +58,7 @@ class _RegistroActaState extends State<RegistroActa> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Registro de ${widget.tipo}'),
+        title: const Text('Registro de Acuerdo'),
       ),
       body: BlocConsumer<ActasBloc, ActasState>(
         listener: (context, state) {
@@ -81,12 +83,35 @@ class _RegistroActaState extends State<RegistroActa> {
               key: _formKey,
               child: Column(
                 children: [
+                  InputSelect(
+                    labelText: 'Acta asociada',
+                    controller: _actaController,
+                    options: [
+                      for (ActaModel acta in state.filterListActas)
+                        Option(
+                          id: acta.id,
+                          value: acta.nombre,
+                          alternativeValue: acta.tipo,
+                        )
+                    ],
+                    onChanged: (Option option) {
+                      setState(() {
+                        actaId = option.id;
+                      });
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Por favor, selecciona un acta asociada';
+                      }
+                      return null;
+                    },
+                  ),
                   Input(
                     labelText: 'Nombre del Documento',
                     controller: _nameController,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Por favor, ingresa un nombre';
+                        return 'Por favor, ingresa el nombre del documento';
                       }
                       return null;
                     },
@@ -97,7 +122,7 @@ class _RegistroActaState extends State<RegistroActa> {
                     controller: _yearController,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Por favor, ingresa un año';
+                        return 'Por favor, ingresa el año de emisión';
                       }
                       return null;
                     },
@@ -109,8 +134,8 @@ class _RegistroActaState extends State<RegistroActa> {
                     child: MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: Input(
-                        hintText: 'Selecciona un documento',
-                        labelText: 'Ruta de archivo',
+                        hintText: 'Selecciona un documento para subir',
+                        labelText: 'Ruta del documento',
                         controller: _docController,
                         readOnly: true,
                         enabled: false,
@@ -126,13 +151,13 @@ class _RegistroActaState extends State<RegistroActa> {
                   const SizedBox(height: 30),
                   UploadButton(
                     documento: _selectedFile,
-                    model: ActaModel(
+                    model: AcuerdoModel(
                       id: '',
                       year: _yearController.text.trim(),
                       fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
                       url: '',
                       nombre: _nameController.text,
-                      tipo: widget.tipo,
+                      actaId: actaId ?? '',
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -150,12 +175,12 @@ class UploadButton extends StatelessWidget {
   const UploadButton({
     super.key,
     required File? documento,
-    required ActaModel model,
+    required AcuerdoModel model,
   })  : _documento = documento,
         _model = model;
 
   final File? _documento;
-  final ActaModel _model;
+  final AcuerdoModel _model;
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +188,7 @@ class UploadButton extends StatelessWidget {
       onTap: () {
         if (_documento != null) {
           BlocProvider.of<ActasBloc>(context).add(
-            CreateActaEvt(
+            CreateAcuerdoEvt(
               file: _documento,
               model: _model,
             ),

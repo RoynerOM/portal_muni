@@ -4,8 +4,8 @@ class ActasState<T> {
   final ActasReact? react;
   final List<ActaModel> listActas;
   final List<ActaModel> filterListActas;
-  final List<ActaModel> listAcuerdos;
-  final List<ActaModel> filterListAcuerdos;
+  final List<AcuerdoModel> listAcuerdos;
+  final List<AcuerdoModel> filterListAcuerdos;
 
   ActasState({
     this.react,
@@ -20,14 +20,14 @@ class ActasState<T> {
     ActasReact? react,
     List<ActaModel>? list,
     List<ActaModel>? filterListActas,
-    List<ActaModel>? listAcuerdos,
-    List<ActaModel>? filterListAcuerdos,
+    List<AcuerdoModel>? listAcuerdos,
+    List<AcuerdoModel>? filterListAcuerdos,
   }) =>
       ActasState<T>(
         react: react ?? state.react,
         listActas: list ?? state.listActas,
         filterListActas: filterListActas ?? state.filterListActas,
-        listAcuerdos: list ?? state.listAcuerdos,
+        listAcuerdos: listAcuerdos ?? state.listAcuerdos,
         filterListAcuerdos: filterListAcuerdos ?? state.filterListAcuerdos,
       );
 }
