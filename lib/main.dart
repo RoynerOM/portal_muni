@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portal_muni/core/storage/storage.dart';
 import 'package:portal_muni/core/utils/hexcolor.dart';
 import 'package:portal_muni/features/actas/bloc/actas_bloc.dart';
-import 'package:portal_muni/features/actas/pages/acuerdos.dart';
 import 'package:portal_muni/features/ejecucion/bloc/ejecucion_bloc.dart';
 import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimiento_bloc.dart';
 import 'package:portal_muni/features/informe_institucional/bloc/informe_institucional_bloc.dart';
 import 'package:portal_muni/features/informe_personal/bloc/informe_personal_bloc.dart';
 import 'package:portal_muni/features/inicio/bloc/acceso_bloc.dart';
+import 'package:portal_muni/features/inicio/pages/inicio_page.dart';
 import 'package:portal_muni/features/plan_institucional/bloc/plan_institucional_bloc.dart';
 import 'package:portal_muni/features/presupuesto/bloc/presupuesto_bloc.dart';
 import 'package:portal_muni/features/report_finance/bloc/report_finance_bloc.dart';
@@ -102,7 +102,8 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
         ),
-        home: const Acuerdos(),
+        //    home: const FinanceroPage(),
+        home: const MenuScreen(),
       ),
     );
   }
