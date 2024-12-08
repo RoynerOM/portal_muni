@@ -55,6 +55,14 @@ class _RegistroPresupuestoPageState extends State<RegistroPresupuestoPage> {
   }
 
   @override
+  void initState() {
+    _nameController.text = widget.tipo == 'Proyectado'
+        ? 'Presupuesto Inicial ${DateTime.now().year}'
+        : '';
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -100,13 +108,18 @@ class _RegistroPresupuestoPageState extends State<RegistroPresupuestoPage> {
                         Option(value: 'Modificación Presupuestaria')
                       ],
                       onChanged: (Option value) {
-                        setState(() {
-                          prefix = 'Presupuesto ${value.value} ';
-                          if (value.value == 'Modificación Presupuestaria') {
-                            prefix = '${value.value} ';
-                          }
-                          _nameController.text = prefix;
-                        });
+                        if (value.value == 'Ordinario') {
+                          _nameController.text =
+                              'Presupuesto Ordinario ${DateTime.now().year} aprobado';
+                        }
+                        if (value.value == 'Extraordinario') {
+                          _nameController.text =
+                              'Presupuesto Extraordinario ${DateTime.now().year}';
+                        }
+
+                        if (value.value == 'Modificación Presupuestaria') {
+                          _nameController.text = 'Modificación Presupuestaria';
+                        }
                       },
                     ),
                   Input(

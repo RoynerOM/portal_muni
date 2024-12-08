@@ -41,12 +41,14 @@ class EjecucionBloc extends Bloc<EjecucionEvent, EjecucionState> {
   Future<void> cargarEjecuciones(LoadEjeucionesEvent evt, Emit emit) async {
     try {
       final list = await repository.getAll();
-
+      //final filter = list.where((x) => x.tipo.contains('Auditorías'));
+      final filter = list
+          .where((x) => x.tipo.contains('Parcial') || x.tipo.contains('Final'));
       emit(
         EjecucionState(
           react: React.getSuccess,
-          list: list,
-          filterList: list,
+          list: filter.toList(),
+          filterList: filter.toList(),
         ),
       );
     } catch (e) {

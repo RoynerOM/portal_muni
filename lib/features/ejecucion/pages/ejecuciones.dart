@@ -12,8 +12,8 @@ import 'package:portal_muni/features/ejecucion/widgets/ejecucion_item.dart';
 import 'package:portal_muni/features/ejecucion/widgets/filtro.dart';
 
 class EjecucionesPage extends StatelessWidget {
-  const EjecucionesPage({super.key});
-
+  const EjecucionesPage({super.key, this.isFinanciero = true});
+  final bool isFinanciero;
   @override
   Widget build(BuildContext context) {
     void showAlertError(String title, String message) {
@@ -76,9 +76,7 @@ class EjecucionesPage extends StatelessWidget {
                             DeleteEjecucionEvent(state.filterList[index].id),
                           );
                         },
-                        esHistorio: state.filterList[index].esHistorico == '0'
-                            ? ''
-                            : 'Histórico',
+                        esHistorio: '',
                       ),
                     );
                   },
@@ -96,68 +94,72 @@ class EjecucionesPage extends StatelessWidget {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            constraints: const BoxConstraints(maxWidth: 800, maxHeight: 420),
+            constraints: BoxConstraints(
+                maxWidth: 800, maxHeight: isFinanciero ? 220 : 100),
             builder: (context) => ListView(
-              children: [
-                SheetTile(
-                  title: 'Nuevo Informe Parcial',
-                  icon: Icons.add,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const RegistroEjecucionPage(tipo: 'Parcial'),
+              children: (isFinanciero)
+                  ? [
+                      SheetTile(
+                        title: 'Nuevo Informe Parcial',
+                        icon: Icons.add,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const RegistroEjecucionPage(tipo: 'Parcial'),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-                SheetTile(
-                  title: 'Nuevo Informe de Fin de Año',
-                  icon: Icons.add,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const RegistroEjecucionPage(tipo: 'Final'),
+                      SheetTile(
+                        title: 'Nuevo Informe de Fin de Año',
+                        icon: Icons.add,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const RegistroEjecucionPage(tipo: 'Final'),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-                SheetTile(
-                  title: 'Nuevo Histórico Aprobado y Ejecutado',
-                  icon: Icons.add,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegistroEjecucionPage(
-                          tipo: 'Histórico',
-                        ),
+                      /*
+                      SheetTile(
+                        title: 'Nuevo Histórico Aprobado y Ejecutado',
+                        icon: Icons.add,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegistroEjecucionPage(
+                                tipo: 'Histórico',
+                              ),
+                            ),
+                          );
+                        },
+                      ),*/
+                    ]
+                  : [
+                      SheetTile(
+                        title: 'Nueva Auditoría del Gasto Público',
+                        icon: Icons.add,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegistroEjecucionPage(
+                                  tipo: 'Auditorías'),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-                /*
-                SheetTile(
-                  title: 'Nueva Auditoría del Gasto Público',
-                  icon: Icons.add,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const RegistroEjecucionPage(tipo: 'Auditorías'),
-                      ),
-                    );
-                  },
-                ),*/
-              ],
+                    ],
             ),
           );
         },

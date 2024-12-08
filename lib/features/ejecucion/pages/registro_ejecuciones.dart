@@ -21,15 +21,16 @@ class RegistroEjecucionPage extends StatefulWidget {
 class _RegistroEjecucionPageState extends State<RegistroEjecucionPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
+  final _typeController = TextEditingController();
   final _urlController = TextEditingController();
   final _docController = TextEditingController();
 
   File? _selectedFile;
-  bool _isHistorical = false;
+
   void clear() {
     _nameController.clear();
     _urlController.clear();
-    _isHistorical = false;
+    _typeController.clear();
   }
 
   Future<void> _selectFile() async {
@@ -44,6 +45,35 @@ class _RegistroEjecucionPageState extends State<RegistroEjecucionPage> {
         _docController.text = _selectedFile!.path;
       });
     }
+  }
+
+  List<String> monthNames = [
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre',
+  ];
+
+  @override
+  void initState() {
+    _nameController.text = getTipo();
+    super.initState();
+  }
+
+  String getTipo() {
+    if (widget.tipo == 'Final') {
+      return 'Informe de liquidación presupuestaria ${DateTime.now().year}';
+    }
+
+    return '';
   }
 
   @override
@@ -75,6 +105,32 @@ class _RegistroEjecucionPageState extends State<RegistroEjecucionPage> {
               key: _formKey,
               child: Column(
                 children: [
+                  if (widget.tipo == 'Parcial')
+                    InputSelect(
+                      labelText: 'Tipo de informe',
+                      controller: _typeController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Por favor, selecciona un informe';
+                        }
+                        return null;
+                      },
+                      options: [
+                        if (widget.tipo == 'Parcial')
+                          Option(value: 'Ejecución'),
+                        if (widget.tipo == 'Parcial')
+                          Option(value: 'Estado financiero'),
+                      ],
+                      onChanged: (Option value) {
+                        if (value.value == 'Ejecución') {
+                          _nameController.text =
+                              'Informe de Ejecución Presupuestaria ${monthNames[DateTime.now().month - 1]} 2024';
+                        } else {
+                          _nameController.text =
+                              'Estados Financieros ${monthNames[DateTime.now().month - 1]} 2024';
+                        }
+                      },
+                    ),
                   Input(
                     labelText: 'Nombre del Documento',
                     controller: _nameController,
@@ -107,27 +163,12 @@ class _RegistroEjecucionPageState extends State<RegistroEjecucionPage> {
                       ),
                     ),
                   ),
-                  if (widget.tipo == 'Auditorías') const SizedBox(height: 10),
-                  if (widget.tipo == 'Auditorías')
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: _isHistorical,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _isHistorical = value ?? false;
-                            });
-                          },
-                        ),
-                        const Text("¿Marcar este documento como histórico?"),
-                      ],
-                    ),
                   const SizedBox(height: 30),
                   UploadButton(
                     documento: _selectedFile,
                     model: EjecucionModel(
                       id: '',
-                      esHistorico: _isHistorical ? '1' : '0',
+                      esHistorico: '1',
                       tipo: widget.tipo,
                       fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
                       url: '',

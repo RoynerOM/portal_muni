@@ -46,6 +46,12 @@ class _RegistroReportePageState extends State<RegistroReportePage> {
   }
 
   @override
+  void initState() {
+    _nameController.text = 'Informe de evaluación presupuestaria';
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

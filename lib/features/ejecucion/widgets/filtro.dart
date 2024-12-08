@@ -6,8 +6,8 @@ import 'package:portal_muni/core/utils/hexcolor.dart';
 import 'package:portal_muni/features/ejecucion/bloc/ejecucion_bloc.dart';
 
 class FiltrosBusqueda extends StatefulWidget {
-  const FiltrosBusqueda({super.key});
-
+  const FiltrosBusqueda({super.key, this.isFinanciero = true});
+  final bool isFinanciero;
   @override
   State<FiltrosBusqueda> createState() => _FiltrosBusquedaState();
 }
@@ -57,11 +57,12 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
                   options: [
                     Option(value: 'Informes parciales de ejecución'),
                     Option(value: 'Informe de fin de año'),
-                    Option(
-                        value: 'Histórico de presupuesto aprobado y ejecutado'),
-                    Option(value: 'Auditorías del gasto público'),
-                    Option(
-                        value: 'Histórico de las auditorías del gasto público'),
+                    if (!widget.isFinanciero)
+                      Option(value: 'Auditorías del gasto público'),
+                    if (!widget.isFinanciero)
+                      Option(
+                          value:
+                              'Histórico de las auditorías del gasto público'),
                     Option(value: 'Todos'),
                   ],
                 ),
