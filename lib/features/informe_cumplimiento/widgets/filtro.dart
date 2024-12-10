@@ -6,8 +6,8 @@ import 'package:portal_muni/core/utils/hexcolor.dart';
 import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimiento_bloc.dart';
 
 class FiltrosBusqueda extends StatefulWidget {
-  const FiltrosBusqueda({super.key});
-
+  const FiltrosBusqueda({super.key, this.isPlan = false});
+  final bool isPlan;
   @override
   State<FiltrosBusqueda> createState() => _FiltrosBusquedaState();
 }
@@ -47,28 +47,31 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
                 ),
               ),
               //Filtro Por Tipo
-              Container(
-                width: media ? null : 350,
-                constraints: media
-                    ? null
-                    : const BoxConstraints(minWidth: 250, maxWidth: 350),
-                child: InputSelect(
-                  controller: tipoController,
-                  hintText: 'Buscar por tipo',
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search),
+              if (widget.isPlan)
+                Container(
+                  width: media ? null : 350,
+                  constraints: media
+                      ? null
+                      : const BoxConstraints(minWidth: 250, maxWidth: 350),
+                  child: InputSelect(
+                    controller: tipoController,
+                    hintText: 'Buscar por tipo',
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                    options: [
+                      Option(value: 'Informes de cumplimiento'),
+                      Option(value: 'Informe anual de gestión'),
+                      if (!widget.isPlan)
+                        Option(value: 'Informe final de gestión'),
+                      if (!widget.isPlan)
+                        Option(
+                            value:
+                                'Informes de seguimiento a las recomendaciones')
+                    ],
+                    onChanged: (Option value) {},
                   ),
-                  options: [
-                    Option(value: 'Informes de cumplimiento'),
-                    Option(value: 'Informe anual de gestión'),
-                    Option(value: 'Informe final de gestión'),
-                    Option(value: 'Histórico de informes anuales'),
-                    Option(
-                        value: 'Informes de seguimiento a las recomendaciones')
-                  ],
-                  onChanged: (Option value) {},
                 ),
-              ),
               // Filtro por año
               Container(
                 width: media ? null : 350,

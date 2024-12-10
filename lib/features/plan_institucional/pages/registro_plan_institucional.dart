@@ -37,7 +37,20 @@ class _RegistroPlanInstitucionalPageState
   Future<void> _selectFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['pdf', 'docx'],
+      allowedExtensions: [
+        'pdf',
+        'docx',
+        'xlsx', // Excel moderno
+        'xls', // Excel antiguo
+        'xlsm', // Excel con macros
+        'csv', // Valores separados por comas
+        'xlsb', // Excel binario
+        'xml', // Archivos XML
+        'xltx', // Plantillas de Excel sin macros
+        'xltm', // Plantillas de Excel con macros
+        'txt', // Archivos de texto
+        'ods' // OpenDocument Spreadsheet
+      ],
     );
 
     if (result != null && result.files.single.path != null) {

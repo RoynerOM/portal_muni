@@ -19,6 +19,15 @@ class InformeCumplimientoBloc
       emit(InformeCumplimientoState().copyWith(state, react: React.getLoading));
       await cargarInformes(event, emit);
     });
+    on<LoadInformeAuditoriaEvt>((event, emit) async {
+      emit(InformeCumplimientoState().copyWith(state, react: React.getLoading));
+      await cargarInformeAuditoria(event, emit);
+    });
+
+    on<LoadInformeRRHHEvt>((event, emit) async {
+      emit(InformeCumplimientoState().copyWith(state, react: React.getLoading));
+      await cargarInformeRRHH(event, emit);
+    });
     on<CreateInformeCumplimientoEvt>((event, emit) async {
       emit(
           InformeCumplimientoState().copyWith(state, react: React.postLoading));
@@ -46,12 +55,57 @@ class InformeCumplimientoBloc
   Future<void> cargarInformes(LoadInformeCumplimientoEvt evt, Emit emit) async {
     try {
       final list = await repository.getAll();
+      final filter = list
+          .where((x) =>
+              x.tipo != 'Informe final de gestión' ||
+              x.tipo != 'Informes de seguimiento a las recomendaciones')
+          .toList();
 
       emit(
         InformeCumplimientoState(
           react: React.getSuccess,
-          list: list,
-          filterList: list,
+          list: filter,
+          filterList: filter,
+        ),
+      );
+    } catch (e) {
+      emit(InformeCumplimientoState(react: React.getError));
+    }
+  }
+
+  Future<void> cargarInformeAuditoria(
+      LoadInformeAuditoriaEvt evt, Emit emit) async {
+    try {
+      final list = await repository.getAll();
+      final filter = list
+          .where((x) =>
+              x.tipo.contains('Informes de seguimiento a las recomendaciones'))
+          .toList();
+
+      emit(
+        InformeCumplimientoState(
+          react: React.getSuccess,
+          list: filter,
+          filterList: filter,
+        ),
+      );
+    } catch (e) {
+      emit(InformeCumplimientoState(react: React.getError));
+    }
+  }
+
+  Future<void> cargarInformeRRHH(LoadInformeRRHHEvt evt, Emit emit) async {
+    try {
+      final list = await repository.getAll();
+      final filter = list
+          .where((x) => x.tipo.contains('Informe final de gestión'))
+          .toList();
+
+      emit(
+        InformeCumplimientoState(
+          react: React.getSuccess,
+          list: filter,
+          filterList: filter,
         ),
       );
     } catch (e) {

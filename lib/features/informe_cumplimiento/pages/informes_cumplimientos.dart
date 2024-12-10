@@ -61,7 +61,7 @@ class InformesCumplimientos extends StatelessWidget {
                 child: Center(
                   child: SizedBox(
                     width: Device.media(context),
-                    child: const FiltrosBusqueda(),
+                    child: const FiltrosBusqueda(isPlan: true),
                   ),
                 ),
               ),
@@ -95,7 +95,7 @@ class InformesCumplimientos extends StatelessWidget {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            constraints: const BoxConstraints(maxWidth: 800, maxHeight: 520),
+            constraints: const BoxConstraints(maxWidth: 800, maxHeight: 200),
             builder: (context) => ListView(
               children: [
                 SheetTile(
@@ -123,51 +123,6 @@ class InformesCumplimientos extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => const RegistroInformeCMPPage(
                           tipo: 'Informe anual de gestión',
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                SheetTile(
-                  title: 'Informe final de gestión',
-                  icon: Icons.add,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegistroInformeCMPPage(
-                          tipo: 'Informe final de gestión',
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                SheetTile(
-                  title: 'Histórico de informes anuales',
-                  icon: Icons.add,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegistroInformeCMPPage(
-                          tipo: 'Histórico de informes anuales',
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                SheetTile(
-                  title: 'Informes de seguimiento a las recomendaciones',
-                  icon: Icons.add,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegistroInformeCMPPage(
-                          tipo: 'Informes de seguimiento a las recomendaciones',
                         ),
                       ),
                     );

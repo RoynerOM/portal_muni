@@ -4,6 +4,10 @@ abstract class InformeCumplimientoEvent {}
 
 class LoadInformeCumplimientoEvt extends InformeCumplimientoEvent {}
 
+class LoadInformeRRHHEvt extends InformeCumplimientoEvent {}
+
+class LoadInformeAuditoriaEvt extends InformeCumplimientoEvent {}
+
 class CreateInformeCumplimientoEvt extends InformeCumplimientoEvent {
   final File file;
   final InformeCumplimientoModel model;
