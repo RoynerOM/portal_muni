@@ -59,7 +59,9 @@ class InformeAuditoria extends StatelessWidget {
                 child: Center(
                   child: SizedBox(
                     width: Device.media(context),
-                    child: const FiltrosBusqueda(),
+                    child: const FiltrosBusqueda(
+                      tipo: 'Informes de seguimiento a las recomendaciones',
+                    ),
                   ),
                 ),
               ),

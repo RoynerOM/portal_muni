@@ -6,8 +6,9 @@ import 'package:portal_muni/core/utils/hexcolor.dart';
 import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimiento_bloc.dart';
 
 class FiltrosBusqueda extends StatefulWidget {
-  const FiltrosBusqueda({super.key, this.isPlan = false});
+  const FiltrosBusqueda({super.key, this.isPlan = false, required this.tipo});
   final bool isPlan;
+  final String tipo;
   @override
   State<FiltrosBusqueda> createState() => _FiltrosBusquedaState();
 }
@@ -104,7 +105,8 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
                       FiltrosEvt(
                         nombreController.text,
                         yearController.text,
-                        tipoController.text,
+                        widget.isPlan ? tipoController.text : widget.tipo,
+                        widget.isPlan,
                       ),
                     );
                   },

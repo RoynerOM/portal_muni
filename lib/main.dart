@@ -106,6 +106,7 @@ class MyApp extends StatelessWidget {
         //home: const FinanceroPage(),
         // home: const MenuScreen(),
         home: const PlanificacionPage(),
+        //home: const AuditoriaPage(),
       ),
     );
   }

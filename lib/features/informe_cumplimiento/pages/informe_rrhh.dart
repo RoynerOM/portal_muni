@@ -59,7 +59,9 @@ class InformeRrhh extends StatelessWidget {
                 child: Center(
                   child: SizedBox(
                     width: Device.media(context),
-                    child: const FiltrosBusqueda(),
+                    child: const FiltrosBusqueda(
+                      tipo: 'Informe final de gestión',
+                    ),
                   ),
                 ),
               ),

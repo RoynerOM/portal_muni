@@ -19,15 +19,7 @@ class InformeCumplimientoBloc
       emit(InformeCumplimientoState().copyWith(state, react: React.getLoading));
       await cargarInformes(event, emit);
     });
-    on<LoadInformeAuditoriaEvt>((event, emit) async {
-      emit(InformeCumplimientoState().copyWith(state, react: React.getLoading));
-      await cargarInformeAuditoria(event, emit);
-    });
 
-    on<LoadInformeRRHHEvt>((event, emit) async {
-      emit(InformeCumplimientoState().copyWith(state, react: React.getLoading));
-      await cargarInformeRRHH(event, emit);
-    });
     on<CreateInformeCumplimientoEvt>((event, emit) async {
       emit(
           InformeCumplimientoState().copyWith(state, react: React.postLoading));
@@ -51,54 +43,63 @@ class InformeCumplimientoBloc
       await filtros(event, emit);
     });
   }
+  //PLANIFICAION
+/*
+  Future<void> cargarInformes(LoadInformeCumplimientoEvt evt, Emit emit) async {
+    try {
+      final list = await repository.getAll();
+
+      final filter = list
+          .where(
+            (x) =>
+                x.tipo.contains('Informes de cumplimiento') ||
+                x.tipo.contains('Informe anual de gestión'),
+          )
+          .toList();
+
+      emit(
+        InformeCumplimientoState(
+          react: React.getSuccess,
+          list: filter,
+          filterList: filter,
+        ),
+      );
+    } catch (e) {
+      emit(InformeCumplimientoState(react: React.getError));
+    }
+  }
+*/
+//RRHH
+/*
+  Future<void> cargarInformes(LoadInformeCumplimientoEvt evt, Emit emit) async {
+    try {
+      final list = await repository.getAll();
+
+      final filter = list
+          .where((x) => x.tipo.contains('Informe final de gestión'))
+          .toList();
+
+      emit(
+        InformeCumplimientoState(
+          react: React.getSuccess,
+          list: filter,
+          filterList: filter,
+        ),
+      );
+    } catch (e) {
+      emit(InformeCumplimientoState(react: React.getError));
+    }
+  }
+*/
+//AUDITORIA
 
   Future<void> cargarInformes(LoadInformeCumplimientoEvt evt, Emit emit) async {
     try {
       final list = await repository.getAll();
-      final filter = list
-          .where((x) =>
-              x.tipo != 'Informe final de gestión' ||
-              x.tipo != 'Informes de seguimiento a las recomendaciones')
-          .toList();
 
-      emit(
-        InformeCumplimientoState(
-          react: React.getSuccess,
-          list: filter,
-          filterList: filter,
-        ),
-      );
-    } catch (e) {
-      emit(InformeCumplimientoState(react: React.getError));
-    }
-  }
-
-  Future<void> cargarInformeAuditoria(
-      LoadInformeAuditoriaEvt evt, Emit emit) async {
-    try {
-      final list = await repository.getAll();
       final filter = list
           .where((x) =>
               x.tipo.contains('Informes de seguimiento a las recomendaciones'))
-          .toList();
-
-      emit(
-        InformeCumplimientoState(
-          react: React.getSuccess,
-          list: filter,
-          filterList: filter,
-        ),
-      );
-    } catch (e) {
-      emit(InformeCumplimientoState(react: React.getError));
-    }
-  }
-
-  Future<void> cargarInformeRRHH(LoadInformeRRHHEvt evt, Emit emit) async {
-    try {
-      final list = await repository.getAll();
-      final filter = list
-          .where((x) => x.tipo.contains('Informe final de gestión'))
           .toList();
 
       emit(
@@ -122,7 +123,11 @@ class InformeCumplimientoBloc
         final coincideNombre = x.nombre.toLowerCase().contains(nombreFiltro);
         final coincideTipo = x.tipo.toLowerCase() == (tipoFilter);
         final coincideYear = x.year.toLowerCase() == (yearFilter);
-        return coincideNombre && coincideTipo && coincideYear;
+        if (evt.isPlan) {
+          return coincideNombre && coincideTipo && coincideYear;
+        }
+
+        return coincideNombre && coincideYear;
       }).toList();
 
       emit(

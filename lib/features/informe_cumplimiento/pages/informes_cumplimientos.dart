@@ -61,7 +61,10 @@ class InformesCumplimientos extends StatelessWidget {
                 child: Center(
                   child: SizedBox(
                     width: Device.media(context),
-                    child: const FiltrosBusqueda(isPlan: true),
+                    child: const FiltrosBusqueda(
+                      isPlan: true,
+                      tipo: '',
+                    ),
                   ),
                 ),
               ),

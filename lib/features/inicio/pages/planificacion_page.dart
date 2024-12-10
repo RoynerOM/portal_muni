@@ -14,7 +14,7 @@ class PlanificacionPage extends StatelessWidget {
         name: 'Planes institucionales',
         description:
             'Evalúa la disponibilidad de planes estratégicos, planes operativos, de desarrollo y otros.',
-        icon: Icons.admin_panel_settings,
+        icon: Icons.account_tree,
         requiredRole: 'planificación',
         targetPage: const PlanesInstitucionales(),
       ),
@@ -22,7 +22,7 @@ class PlanificacionPage extends StatelessWidget {
         name: 'Cumplimiento de planes institucionales',
         description:
             'Evalúa la disponibilidad de informes de cumplimiento de los planes institucionales.',
-        icon: Icons.person,
+        icon: Icons.assignment_turned_in,
         requiredRole: 'planificación',
         targetPage: const InformesCumplimientos(),
       ),

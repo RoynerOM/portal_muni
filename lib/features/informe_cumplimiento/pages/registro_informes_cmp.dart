@@ -61,11 +61,11 @@ class _RegistroInformeCMPPageState extends State<RegistroInformeCMPPage> {
 
   String getTipo() {
     if (widget.tipo == "Plan estratégico/ institucional") {
-      return 'PEM UPALA ';
+      return 'Plan Estratégico Municipal ${DateTime.now().year}- ';
     }
 
     if (widget.tipo == "Plan anual operativo") {
-      return 'PAO ';
+      return 'Plan Anual Operativo ${DateTime.now().year} ';
     }
 
     return '';

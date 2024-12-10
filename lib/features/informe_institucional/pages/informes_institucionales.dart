@@ -95,7 +95,7 @@ class InformesInstitucionales extends StatelessWidget {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            constraints: const BoxConstraints(maxWidth: 800, maxHeight: 420),
+            constraints: const BoxConstraints(maxWidth: 800, maxHeight: 220),
             builder: (context) => ListView(
               children: [
                 SheetTile(
@@ -130,6 +130,7 @@ class InformesInstitucionales extends StatelessWidget {
                     );
                   },
                 ),
+                /*
                 SheetTile(
                   title: 'Informe del archivo institucional',
                   icon: Icons.add,
@@ -161,7 +162,7 @@ class InformesInstitucionales extends StatelessWidget {
                       ),
                     );
                   },
-                ),
+                ),*/
               ],
             ),
           );
