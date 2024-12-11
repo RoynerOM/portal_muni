@@ -11,9 +11,7 @@ import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimie
 import 'package:portal_muni/features/informe_cumplimiento/pages/registro_informes_cmp.dart';
 import 'package:portal_muni/features/informe_cumplimiento/widgets/ejecucion_item.dart';
 import 'package:portal_muni/features/informe_cumplimiento/widgets/filtro.dart';
-import 'package:portal_muni/injection.dart';
 
-// Falta corregir los filtros de busqueda y anhadir un campo interno en el modelo como historico
 class InformesCumplimientos extends StatelessWidget {
   const InformesCumplimientos({super.key});
 

@@ -45,7 +45,7 @@ class InformeInstitucionalBloc
       await filtros(event, emit);
     });
   }
-
+/*
   Future<void> cargarInformes(
       LoadInformeInstitucionalEvt evt, Emit emit) async {
     try {
@@ -56,6 +56,29 @@ class InformeInstitucionalBloc
           react: React.getSuccess,
           list: list,
           filterList: list,
+        ),
+      );
+    } catch (e) {
+      emit(InformeInstitucionalState(react: React.getError));
+    }
+  }
+*/
+//AUDITORIA
+  Future<void> cargarInformes(
+      LoadInformeInstitucionalEvt evt, Emit emit) async {
+    try {
+      final list = await repository.getAll();
+      final filter = list
+          .where(
+            (x) => x.tipo.contains('Especial') || x.tipo.contains('Anual'),
+          )
+          .toList();
+
+      emit(
+        InformeInstitucionalState(
+          react: React.getSuccess,
+          list: filter,
+          filterList: filter,
         ),
       );
     } catch (e) {

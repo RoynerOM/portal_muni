@@ -76,6 +76,7 @@ class _RegistroInformeInstitucionalPageState
   @override
   void initState() {
     _nameController.text = getTipo();
+    _yearController.text = DateTime.now().year.toString();
     super.initState();
   }
 
@@ -113,7 +114,6 @@ class _RegistroInformeInstitucionalPageState
                     labelText: 'Nombre del Documento',
                     controller: _nameController,
                     validator: (value) {
-                      //Validar el formato de normalizar
                       if (value!.isEmpty) {
                         return 'Por favor, ingresa un nombre';
                       }
@@ -125,7 +125,6 @@ class _RegistroInformeInstitucionalPageState
                     labelText: 'Año de emisión',
                     controller: _yearController,
                     validator: (value) {
-                      //Validar el formato de normalizar
                       if (value!.isEmpty) {
                         return 'Por favor, ingresa un año';
                       }
@@ -154,17 +153,7 @@ class _RegistroInformeInstitucionalPageState
                     ),
                   ),
                   const SizedBox(height: 30),
-                  UploadButton(
-                    documento: _selectedFile,
-                    model: InformeInstModel(
-                      id: '',
-                      year: _yearController.text.trim(),
-                      fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-                      url: '',
-                      nombre: _nameController.text,
-                      tipo: widget.tipo,
-                    ),
-                  ),
+                  onSend(),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -182,48 +171,41 @@ class _RegistroInformeInstitucionalPageState
   void showAlertSuccess(String title, String message) {
     Alert.success(context, title: title, message: message, pop: true);
   }
-}
 
-class UploadButton extends StatelessWidget {
-  const UploadButton({
-    super.key,
-    required File? documento,
-    required InformeInstModel model,
-  })  : _documento = documento,
-        _model = model;
-
-  final File? _documento;
-  final InformeInstModel _model;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if (_documento != null) {
-          BlocProvider.of<InformeInstitucionalBloc>(context).add(
-            CreateInformeInstitucionalEvt(
-              file: _documento,
-              model: _model,
+  Widget onSend() => InkWell(
+        onTap: () {
+          if (_formKey.currentState!.validate() && _selectedFile != null) {
+            BlocProvider.of<InformeInstitucionalBloc>(context).add(
+              CreateInformeInstitucionalEvt(
+                file: _selectedFile!,
+                model: InformeInstModel(
+                  id: '',
+                  year: _yearController.text.trim(),
+                  fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                  url: '',
+                  nombre: _nameController.text,
+                  tipo: widget.tipo,
+                ),
+              ),
+            );
+          }
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: 720,
+          constraints: const BoxConstraints(maxWidth: 720),
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+          decoration: BoxDecoration(
+              color: HexColor('3A85FF'),
+              borderRadius: BorderRadius.circular(20)),
+          child: const Text(
+            'Guardar',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
             ),
-          );
-        }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        width: 720,
-        constraints: const BoxConstraints(maxWidth: 720),
-        padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-        decoration: BoxDecoration(
-            color: HexColor('3A85FF'), borderRadius: BorderRadius.circular(20)),
-        child: const Text(
-          'Guardar',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
           ),
         ),
-      ),
-    );
-  }
+      );
 }

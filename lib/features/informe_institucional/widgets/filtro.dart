@@ -61,8 +61,9 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
                   options: [
                     Option(value: 'Especial'),
                     Option(value: 'Anual'),
+                    /*
                     Option(value: 'Archivo'),
-                    Option(value: 'Calificación de personal')
+                    Option(value: 'Calificación de personal')*/
                   ],
                   onChanged: (Option value) {},
                 ),

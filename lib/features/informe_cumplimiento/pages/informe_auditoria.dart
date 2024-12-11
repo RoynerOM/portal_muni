@@ -10,7 +10,6 @@ import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimie
 import 'package:portal_muni/features/informe_cumplimiento/pages/registro_informes_cmp.dart';
 import 'package:portal_muni/features/informe_cumplimiento/widgets/ejecucion_item.dart';
 import 'package:portal_muni/features/informe_cumplimiento/widgets/filtro.dart';
-import 'package:portal_muni/injection.dart';
 
 class InformeAuditoria extends StatelessWidget {
   const InformeAuditoria({super.key});
@@ -29,7 +28,7 @@ class InformeAuditoria extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Cumplimiento de planes institucionales'),
+        title: const Text('Informes de seguimiento a las recomendaciones'),
         actions: [
           RefreshIcon(
             onPressed: () {
