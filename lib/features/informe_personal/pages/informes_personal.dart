@@ -30,7 +30,7 @@ class InformesDePersonal extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         // title: const Text('Informes de Personal'),
-        title: const Text('Informes de viajes'),
+        title: const Text('Programa de actividades de jerarcas'),
         actions: [
           RefreshIcon(
             onPressed: () {
@@ -105,7 +105,7 @@ class InformesDePersonal extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => const RegistroInformePersonalPage(
-                tipo: 'Viajes',
+                tipo: 'Actividades',
               ),
             ),
           );

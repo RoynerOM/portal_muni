@@ -17,7 +17,7 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
   final nombreController = TextEditingController();
   final yearController =
       TextEditingController(text: DateTime.now().year.toString());
-  String type = 'Viajes';
+  String type = 'Actividades';
   @override
   Widget build(BuildContext context) {
     bool media =
