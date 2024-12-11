@@ -29,7 +29,8 @@ class InformesInstitucionales extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Informes Institucionales'),
+        //  title: const Text('Informes Institucionales'),
+        title: const Text('Informe del archivo institucional'),
         actions: [
           RefreshIcon(
             onPressed: () {
@@ -101,12 +102,22 @@ class InformesInstitucionales extends StatelessWidget {
         backgroundColor: HexColor('3B86F9'),
         foregroundColor: Colors.white,
         onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const RegistroInformeInstitucionalPage(
+                tipo: 'Archivo',
+              ),
+            ),
+          );
+          /*
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            constraints: const BoxConstraints(maxWidth: 800, maxHeight: 220),
+            constraints: const BoxConstraints(maxWidth: 800, maxHeight: 100),
             builder: (context) => ListView(
               children: [
+                /*
                 SheetTile(
                   title: 'Informes Especiales de Auditoría',
                   icon: Icons.add,
@@ -138,8 +149,8 @@ class InformesInstitucionales extends StatelessWidget {
                       ),
                     );
                   },
-                ),
-                /*
+                ),*/
+/*
                 SheetTile(
                   title: 'Informe del archivo institucional',
                   icon: Icons.add,
@@ -155,7 +166,7 @@ class InformesInstitucionales extends StatelessWidget {
                       ),
                     );
                   },
-                ),
+                ), 
                 SheetTile(
                   title: 'Informes de calificación del personal',
                   icon: Icons.add,
@@ -174,7 +185,7 @@ class InformesInstitucionales extends StatelessWidget {
                 ),*/
               ],
             ),
-          );
+          );*/
         },
         child: const Icon(Icons.add),
       ),
