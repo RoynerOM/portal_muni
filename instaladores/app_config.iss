@@ -3,7 +3,7 @@
 
 #define MyAppName "Portal Muni"
 #define MyAppVersion "1.0.0"
-#define MyAppPublisher "Municipalidad Upala"
+#define MyAppPublisher "Royner Oporta Meza"
 #define MyAppURL "https://www.muniupala.go.cr/"
 #define MyAppExeName "portal_muni.exe"
 
