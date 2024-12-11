@@ -9,6 +9,7 @@ import 'package:portal_muni/features/informe_institucional/bloc/informe_instituc
 import 'package:portal_muni/features/informe_personal/bloc/informe_personal_bloc.dart';
 import 'package:portal_muni/features/informe_personal/pages/informes_personal.dart';
 import 'package:portal_muni/features/inicio/bloc/acceso_bloc.dart';
+import 'package:portal_muni/features/inicio/pages/temas_page.dart';
 import 'package:portal_muni/features/plan_institucional/bloc/plan_institucional_bloc.dart';
 import 'package:portal_muni/features/presupuesto/bloc/presupuesto_bloc.dart';
 import 'package:portal_muni/features/report_finance/bloc/report_finance_bloc.dart';
@@ -108,7 +109,8 @@ class MyApp extends StatelessWidget {
         //home: const PlanificacionPage(),
         // home: const InformesInstitucionales(),
         // home: const RrhhPage(),
-        home: const InformesDePersonal(),
+        // home: const InformesDePersonal(),
+        home: const TemasPage(),
       ),
     );
   }

@@ -137,17 +137,7 @@ class _RegistroActaState extends State<RegistroActa> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  UploadButton(
-                    documento: _selectedFile,
-                    model: ActaModel(
-                      id: '',
-                      year: _yearController.text.trim(),
-                      fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-                      url: '',
-                      nombre: _nameController.text,
-                      tipo: widget.tipo,
-                    ),
-                  ),
+                  onSend(),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -157,48 +147,41 @@ class _RegistroActaState extends State<RegistroActa> {
       ),
     );
   }
-}
 
-class UploadButton extends StatelessWidget {
-  const UploadButton({
-    super.key,
-    required File? documento,
-    required ActaModel model,
-  })  : _documento = documento,
-        _model = model;
-
-  final File? _documento;
-  final ActaModel _model;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if (_documento != null) {
-          BlocProvider.of<ActasBloc>(context).add(
-            CreateActaEvt(
-              file: _documento,
-              model: _model,
+  Widget onSend() => InkWell(
+        onTap: () {
+          if (_formKey.currentState!.validate() && _selectedFile != null) {
+            BlocProvider.of<ActasBloc>(context).add(
+              CreateActaEvt(
+                file: _selectedFile!,
+                model: ActaModel(
+                  id: '',
+                  year: _yearController.text.trim(),
+                  fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                  url: '',
+                  nombre: _nameController.text,
+                  tipo: widget.tipo,
+                ),
+              ),
+            );
+          }
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: 720,
+          constraints: const BoxConstraints(maxWidth: 720),
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+          decoration: BoxDecoration(
+              color: HexColor('3A85FF'),
+              borderRadius: BorderRadius.circular(20)),
+          child: const Text(
+            'Guardar',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
             ),
-          );
-        }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        width: 720,
-        constraints: const BoxConstraints(maxWidth: 720),
-        padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-        decoration: BoxDecoration(
-            color: HexColor('3A85FF'), borderRadius: BorderRadius.circular(20)),
-        child: const Text(
-          'Guardar',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
           ),
         ),
-      ),
-    );
-  }
+      );
 }
