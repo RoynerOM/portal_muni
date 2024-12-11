@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portal_muni/app/buttons/refresh_icon.dart';
 import 'package:portal_muni/app/dialog/banner_ui.dart';
 import 'package:portal_muni/app/scroll/custom_scroll.dart';
 import 'package:portal_muni/app/spinner/dual_ring.dart';
@@ -10,6 +11,7 @@ import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimie
 import 'package:portal_muni/features/informe_cumplimiento/pages/registro_informes_cmp.dart';
 import 'package:portal_muni/features/informe_cumplimiento/widgets/ejecucion_item.dart';
 import 'package:portal_muni/features/informe_cumplimiento/widgets/filtro.dart';
+import 'package:portal_muni/injection.dart';
 
 // Falta corregir los filtros de busqueda y anhadir un campo interno en el modelo como historico
 class InformesCumplimientos extends StatelessWidget {
@@ -30,6 +32,14 @@ class InformesCumplimientos extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Cumplimiento de planes institucionales'),
+        actions: [
+          RefreshIcon(
+            onPressed: () {
+              BlocProvider.of<InformeCumplimientoBloc>(context)
+                  .add(LoadInformeCumplimientoEvt());
+            },
+          )
+        ],
       ),
       body: BlocConsumer<InformeCumplimientoBloc, InformeCumplimientoState>(
         listener: (context, state) {
