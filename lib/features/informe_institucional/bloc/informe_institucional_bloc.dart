@@ -88,14 +88,14 @@ class InformeInstitucionalBloc
     }
   }
 */
-//ARCHIVO
+// Cambiar a Arhivo o Calificación de personal
   Future<void> cargarInformes(
       LoadInformeInstitucionalEvt evt, Emit emit) async {
     try {
       final list = await repository.getAll();
       final filter = list
           .where(
-            (x) => x.tipo.contains('Archivo'),
+            (x) => x.tipo.contains('Calificación de personal'),
           )
           .toList();
 

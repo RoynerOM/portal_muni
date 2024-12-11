@@ -70,7 +70,7 @@ class InformeCumplimientoBloc
   }
 */
 //RRHH
-/*
+
   Future<void> cargarInformes(LoadInformeCumplimientoEvt evt, Emit emit) async {
     try {
       final list = await repository.getAll();
@@ -90,9 +90,9 @@ class InformeCumplimientoBloc
       emit(InformeCumplimientoState(react: React.getError));
     }
   }
-*/
-//AUDITORIA
 
+//AUDITORIA
+/*
   Future<void> cargarInformes(LoadInformeCumplimientoEvt evt, Emit emit) async {
     try {
       final list = await repository.getAll();
@@ -113,7 +113,7 @@ class InformeCumplimientoBloc
       emit(InformeCumplimientoState(react: React.getError));
     }
   }
-
+*/
   Future<void> filtros(FiltrosEvt evt, Emit emit) async {
     final nombreFiltro = evt.nombre.toLowerCase();
     final tipoFilter = evt.tipo.toLowerCase();

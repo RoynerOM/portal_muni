@@ -30,7 +30,8 @@ class InformesInstitucionales extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         //  title: const Text('Informes Institucionales'),
-        title: const Text('Informe del archivo institucional'),
+        // title: const Text('Informe del archivo institucional'),
+        title: const Text('Informes de calificación del personal'),
         actions: [
           RefreshIcon(
             onPressed: () {
@@ -106,7 +107,7 @@ class InformesInstitucionales extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => const RegistroInformeInstitucionalPage(
-                tipo: 'Archivo',
+                tipo: 'Calificación de personal',
               ),
             ),
           );

@@ -67,7 +67,7 @@ class _RegistroInformeInstitucionalPageState
     }
 
     if (widget.tipo == "Calificación de personal") {
-      return 'INFORME MU-GTL-INF ';
+      return 'Informe de evalaución del desempeño ';
     }
 
     return '';

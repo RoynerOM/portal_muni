@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portal_muni/app/buttons/refresh_icon.dart';
 import 'package:portal_muni/app/dialog/banner_ui.dart';
 import 'package:portal_muni/app/scroll/custom_scroll.dart';
 import 'package:portal_muni/app/spinner/dual_ring.dart';
@@ -27,7 +28,15 @@ class InformeRrhh extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Cumplimiento de planes institucionales'),
+        title: const Text('Informe final de gestión'),
+        actions: [
+          RefreshIcon(
+            onPressed: () {
+              BlocProvider.of<InformeCumplimientoBloc>(context)
+                  .add(LoadInformeCumplimientoEvt());
+            },
+          )
+        ],
       ),
       body: BlocConsumer<InformeCumplimientoBloc, InformeCumplimientoState>(
         listener: (context, state) {

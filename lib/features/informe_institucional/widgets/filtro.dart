@@ -13,7 +13,8 @@ class FiltrosBusqueda extends StatefulWidget {
 }
 
 class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
-  final tipoController = TextEditingController(text: 'Archivo');
+  final tipoController =
+      TextEditingController(text: 'Calificación de personal');
   final nombreController = TextEditingController();
   final yearController =
       TextEditingController(text: DateTime.now().year.toString());
