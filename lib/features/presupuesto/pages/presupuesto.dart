@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portal_muni/app/buttons/refresh_icon.dart';
 import 'package:portal_muni/app/dialog/banner_ui.dart';
 import 'package:portal_muni/app/scroll/custom_scroll.dart';
 import 'package:portal_muni/app/spinner/dual_ring.dart';
@@ -29,6 +30,14 @@ class PresupuestoPage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Presupuestos Proyectados y Aprobados'),
+        actions: [
+          RefreshIcon(
+            onPressed: () {
+              BlocProvider.of<PresupuestoBloc>(context)
+                  .add(LoadPresupuestoEvent());
+            },
+          )
+        ],
       ),
       body: BlocConsumer<PresupuestoBloc, PresupuestoState>(
         listener: (context, state) {

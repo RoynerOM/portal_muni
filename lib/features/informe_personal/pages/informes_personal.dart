@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portal_muni/app/buttons/refresh_icon.dart';
 import 'package:portal_muni/app/dialog/banner_ui.dart';
 import 'package:portal_muni/app/scroll/custom_scroll.dart';
 import 'package:portal_muni/app/spinner/dual_ring.dart';
@@ -28,7 +29,16 @@ class InformesDePersonal extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Informes de Personal'),
+        // title: const Text('Informes de Personal'),
+        title: const Text('Informes de viajes'),
+        actions: [
+          RefreshIcon(
+            onPressed: () {
+              BlocProvider.of<InformePersonalBloc>(context)
+                  .add(LoadInformePersonalEvt());
+            },
+          )
+        ],
       ),
       body: BlocConsumer<InformePersonalBloc, InformePersonalState>(
         listener: (context, state) {
@@ -91,7 +101,15 @@ class InformesDePersonal extends StatelessWidget {
         backgroundColor: HexColor('3B86F9'),
         foregroundColor: Colors.white,
         onPressed: () {
-          showModalBottomSheet(
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const RegistroInformePersonalPage(
+                tipo: 'Viajes',
+              ),
+            ),
+          );
+          /* showModalBottomSheet(
             isScrollControlled: true,
             context: context,
             constraints: const BoxConstraints(maxWidth: 800, maxHeight: 220),
@@ -129,7 +147,7 @@ class InformesDePersonal extends StatelessWidget {
                 ),
               ],
             ),
-          );
+          );*/
         },
         child: const Icon(Icons.add),
       ),

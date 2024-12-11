@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portal_muni/app/scroll/center_scroll.dart';
 import 'package:portal_muni/features/ejecucion/pages/ejecuciones.dart';
+import 'package:portal_muni/features/informe_personal/pages/informes_personal.dart';
 import 'package:portal_muni/features/inicio/models/menu_model.dart';
 import 'package:portal_muni/features/presupuesto/pages/presupuesto.dart';
 import 'package:portal_muni/features/report_finance/pages/reporte_financiero.dart';
@@ -14,23 +15,33 @@ class FinanceroPage extends StatelessWidget {
       MenuItem(
         name: 'Presupuestos',
         description: 'Accede a funciones administrativas',
-        icon: Icons.admin_panel_settings,
+        icon: Icons.account_balance,
         requiredRole: 'financiero',
         targetPage: const PresupuestoPage(),
       ),
       MenuItem(
-        name: 'Informes',
-        description: 'Accede a funciones básicas',
-        icon: Icons.person,
+        name: 'Ejecución del presupuesto',
+        description:
+            'Evalúa la disponibilidad de informes de ejecución presupuestaria.',
+        icon: Icons.bar_chart,
         requiredRole: 'financiero',
         targetPage: const EjecucionesPage(),
       ),
       MenuItem(
-        name: 'Reportes',
-        description: 'Accede a funciones básicas',
-        icon: Icons.person,
+        name: 'Reporte anual financiero',
+        description:
+            'Evalúa la disponibilidad del reporte anual financiero de la institución.',
+        icon: Icons.receipt_long,
         requiredRole: 'financiero',
         targetPage: const ReporteFinancieroPage(),
+      ),
+      MenuItem(
+        name: 'Informes de viajes',
+        description:
+            'Está disponible toda la siguiente información: motivo del viaje, resultados obtenidos, todos los funcionarios que asistieron, y viáticos percibidos de la institución o de otras organizaciones',
+        icon: Icons.flight_takeoff,
+        requiredRole: 'financiero',
+        targetPage: const InformesDePersonal(),
       ),
     ];
 

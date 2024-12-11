@@ -63,6 +63,7 @@ class _RegistroInformePersonalPageState
 
   @override
   void initState() {
+    _yearController.text = DateTime.now().year.toString();
     super.initState();
   }
 
@@ -141,17 +142,7 @@ class _RegistroInformePersonalPageState
                     ),
                   ),
                   const SizedBox(height: 30),
-                  UploadButton(
-                    documento: _selectedFile,
-                    model: InformePersonalModel(
-                      id: '',
-                      year: _yearController.text.trim(),
-                      fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-                      url: '',
-                      nombre: _nameController.text,
-                      tipo: widget.tipo,
-                    ),
-                  ),
+                  onSend(),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -169,48 +160,41 @@ class _RegistroInformePersonalPageState
   void showAlertSuccess(String title, String message) {
     Alert.success(context, title: title, message: message, pop: true);
   }
-}
 
-class UploadButton extends StatelessWidget {
-  const UploadButton({
-    super.key,
-    required File? documento,
-    required InformePersonalModel model,
-  })  : _documento = documento,
-        _model = model;
-
-  final File? _documento;
-  final InformePersonalModel _model;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if (_documento != null) {
-          BlocProvider.of<InformePersonalBloc>(context).add(
-            CreateInformePersonalEvt(
-              file: _documento,
-              model: _model,
+  Widget onSend() => InkWell(
+        onTap: () {
+          if (_formKey.currentState!.validate() && _selectedFile != null) {
+            BlocProvider.of<InformePersonalBloc>(context).add(
+              CreateInformePersonalEvt(
+                file: _selectedFile!,
+                model: InformePersonalModel(
+                  id: '',
+                  year: _yearController.text.trim(),
+                  fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                  url: '',
+                  nombre: _nameController.text,
+                  tipo: widget.tipo,
+                ),
+              ),
+            );
+          }
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: 720,
+          constraints: const BoxConstraints(maxWidth: 720),
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+          decoration: BoxDecoration(
+              color: HexColor('3A85FF'),
+              borderRadius: BorderRadius.circular(20)),
+          child: const Text(
+            'Guardar',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
             ),
-          );
-        }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        width: 720,
-        constraints: const BoxConstraints(maxWidth: 720),
-        padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-        decoration: BoxDecoration(
-            color: HexColor('3A85FF'), borderRadius: BorderRadius.circular(20)),
-        child: const Text(
-          'Guardar',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
           ),
         ),
-      ),
-    );
-  }
+      );
 }

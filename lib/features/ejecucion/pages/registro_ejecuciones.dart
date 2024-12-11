@@ -177,17 +177,7 @@ class _RegistroEjecucionPageState extends State<RegistroEjecucionPage> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  UploadButton(
-                    documento: _selectedFile,
-                    model: EjecucionModel(
-                      id: '',
-                      esHistorico: '1',
-                      tipo: widget.tipo,
-                      fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-                      url: '',
-                      nombre: _nameController.text,
-                    ),
-                  ),
+                  onSend(),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -205,48 +195,41 @@ class _RegistroEjecucionPageState extends State<RegistroEjecucionPage> {
   void showAlertSuccess(String title, String message) {
     Alert.success(context, title: title, message: message, pop: true);
   }
-}
 
-class UploadButton extends StatelessWidget {
-  const UploadButton({
-    super.key,
-    required File? documento,
-    required EjecucionModel model,
-  })  : _documento = documento,
-        _model = model;
-
-  final File? _documento;
-  final EjecucionModel _model;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if (_documento != null) {
-          BlocProvider.of<EjecucionBloc>(context).add(
-            CreateEjecucionEvent(
-              file: _documento,
-              model: _model,
+  Widget onSend() => InkWell(
+        onTap: () {
+          if (_formKey.currentState!.validate() && _selectedFile != null) {
+            BlocProvider.of<EjecucionBloc>(context).add(
+              CreateEjecucionEvent(
+                file: _selectedFile!,
+                model: EjecucionModel(
+                  id: '',
+                  esHistorico: '1',
+                  tipo: widget.tipo,
+                  fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                  url: '',
+                  nombre: _nameController.text,
+                ),
+              ),
+            );
+          }
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: 720,
+          constraints: const BoxConstraints(maxWidth: 720),
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+          decoration: BoxDecoration(
+              color: HexColor('3A85FF'),
+              borderRadius: BorderRadius.circular(20)),
+          child: const Text(
+            'Guardar',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
             ),
-          );
-        }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        width: 720,
-        constraints: const BoxConstraints(maxWidth: 720),
-        padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-        decoration: BoxDecoration(
-            color: HexColor('3A85FF'), borderRadius: BorderRadius.circular(20)),
-        child: const Text(
-          'Guardar',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
           ),
         ),
-      ),
-    );
-  }
+      );
 }

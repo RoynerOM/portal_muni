@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portal_muni/app/buttons/refresh_icon.dart';
 import 'package:portal_muni/app/dialog/banner_ui.dart';
 import 'package:portal_muni/app/spinner/dual_ring.dart';
 import 'package:portal_muni/core/utils/device.dart';
@@ -28,6 +29,14 @@ class ReporteFinancieroPage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Reporte Anual Financiero'),
+        actions: [
+          RefreshIcon(
+            onPressed: () {
+              BlocProvider.of<ReportFinanceBloc>(context)
+                  .add(LoadReportFinanceEvt());
+            },
+          )
+        ],
       ),
       body: BlocConsumer<ReportFinanceBloc, ReportFinanceState>(
         listener: (context, state) {

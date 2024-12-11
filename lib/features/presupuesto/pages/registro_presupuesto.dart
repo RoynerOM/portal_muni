@@ -72,6 +72,7 @@ class _RegistroPresupuestoPageState extends State<RegistroPresupuestoPage> {
     _nameController.text = widget.tipo == 'Proyectado'
         ? 'Presupuesto Inicial ${DateTime.now().year}'
         : '';
+    _yearController.text = DateTime.now().year.toString();
     super.initState();
   }
 
@@ -179,18 +180,7 @@ class _RegistroPresupuestoPageState extends State<RegistroPresupuestoPage> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  UploadButton(
-                    documento: _selectedFile,
-                    model: PresupuestoModel(
-                      id: '',
-                      categoria: _categoryController.text.trim(),
-                      year: _yearController.text.trim(),
-                      tipo: widget.tipo,
-                      fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-                      url: '',
-                      nombre: _nameController.text.trim(),
-                    ),
-                  ),
+                  onSend(),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -208,48 +198,42 @@ class _RegistroPresupuestoPageState extends State<RegistroPresupuestoPage> {
   void showAlertSuccess(String title, String message) {
     Alert.success(context, title: title, message: message, pop: true);
   }
-}
 
-class UploadButton extends StatelessWidget {
-  const UploadButton({
-    super.key,
-    required File? documento,
-    required PresupuestoModel model,
-  })  : _documento = documento,
-        _model = model;
-
-  final File? _documento;
-  final PresupuestoModel _model;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if (_documento != null) {
-          BlocProvider.of<PresupuestoBloc>(context).add(
-            CreatePresupuestoEvent(
-              file: _documento,
-              model: _model,
+  Widget onSend() => InkWell(
+        onTap: () {
+          if (_formKey.currentState!.validate() && _selectedFile != null) {
+            BlocProvider.of<PresupuestoBloc>(context).add(
+              CreatePresupuestoEvent(
+                file: _selectedFile!,
+                model: PresupuestoModel(
+                  id: '',
+                  categoria: _categoryController.text.trim(),
+                  year: _yearController.text.trim(),
+                  tipo: widget.tipo,
+                  fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                  url: '',
+                  nombre: _nameController.text.trim(),
+                ),
+              ),
+            );
+          }
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: 720,
+          constraints: const BoxConstraints(maxWidth: 720),
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+          decoration: BoxDecoration(
+              color: HexColor('3A85FF'),
+              borderRadius: BorderRadius.circular(20)),
+          child: const Text(
+            'Guardar',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
             ),
-          );
-        }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        width: 720,
-        constraints: const BoxConstraints(maxWidth: 720),
-        padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-        decoration: BoxDecoration(
-            color: HexColor('3A85FF'), borderRadius: BorderRadius.circular(20)),
-        child: const Text(
-          'Guardar',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
           ),
         ),
-      ),
-    );
-  }
+      );
 }

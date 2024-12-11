@@ -17,7 +17,7 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
   final nombreController = TextEditingController();
   final yearController =
       TextEditingController(text: DateTime.now().year.toString());
-  String type = '';
+  String type = 'Viajes';
   @override
   Widget build(BuildContext context) {
     bool media =
@@ -41,13 +41,14 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
                     : const BoxConstraints(minWidth: 250, maxWidth: 350),
                 child: Input(
                   controller: nombreController,
-                  hintText: 'Buscar por nombre o año',
+                  hintText: 'Buscar por nombre',
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.search),
                   ),
                 ),
               ),
               //Filtro Por Tipo
+              /*
               Container(
                 width: media ? null : 350,
                 constraints: media
@@ -72,7 +73,7 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
                     setState(() {});
                   },
                 ),
-              ),
+              ),*/
               // Filtro por año
               Container(
                 width: media ? null : 350,

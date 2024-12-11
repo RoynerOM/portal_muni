@@ -10,6 +10,7 @@ import 'package:portal_muni/features/informe_institucional/pages/informes_instit
 import 'package:portal_muni/features/informe_personal/bloc/informe_personal_bloc.dart';
 import 'package:portal_muni/features/inicio/bloc/acceso_bloc.dart';
 import 'package:portal_muni/features/inicio/pages/auditoria_page.dart';
+import 'package:portal_muni/features/inicio/pages/gestion_financiero.dart';
 import 'package:portal_muni/features/inicio/pages/planificacion_page.dart';
 import 'package:portal_muni/features/inicio/pages/rrhh_page.dart';
 import 'package:portal_muni/features/plan_institucional/bloc/plan_institucional_bloc.dart';
@@ -106,11 +107,11 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
         ),
-        //home: const FinanceroPage(),
+        home: const FinanceroPage(),
         // home: const MenuScreen(),
         //home: const PlanificacionPage(),
         // home: const InformesInstitucionales(),
-        home: const RrhhPage(),
+        // home: const RrhhPage(),
       ),
     );
   }

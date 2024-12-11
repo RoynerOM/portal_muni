@@ -42,12 +42,16 @@ class InformePersonalBloc
   Future<void> cargarInformes(LoadInformePersonalEvt evt, Emit emit) async {
     try {
       final list = await repository.getAll();
-
+      final filter = list
+          .where(
+            (x) => x.tipo.contains('Viajes'),
+          )
+          .toList();
       emit(
         InformePersonalState(
           react: React.getSuccess,
-          list: list,
-          filterList: list,
+          list: filter,
+          filterList: filter,
         ),
       );
     } catch (e) {

@@ -38,7 +38,7 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
                     : const BoxConstraints(minWidth: 250, maxWidth: 350),
                 child: Input(
                   controller: nombreController,
-                  hintText: 'Buscar por nombre o año',
+                  hintText: 'Buscar por nombre',
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.search),
                   ),
