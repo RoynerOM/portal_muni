@@ -20,7 +20,6 @@ class PresupuestoRepository {
 
   Future<void> post(File file, PresupuestoModel model) async {
     var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
-
     request.fields['year'] = model.year;
     request.fields['tipo'] = model.tipo;
     request.fields['fecha'] = model.fecha;

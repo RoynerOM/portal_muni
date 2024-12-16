@@ -106,36 +106,35 @@ class _RegistroPresupuestoPageState extends State<RegistroPresupuestoPage> {
               key: _formKey,
               child: Column(
                 children: [
-                  if (widget.tipo == 'Aprobado')
-                    InputSelect(
-                      labelText: 'Tipo de presupuesto',
-                      controller: _categoryController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Por favor, selecciona un tipo';
-                        }
-                        return null;
-                      },
-                      options: [
-                        Option(value: 'Ordinario'),
-                        Option(value: 'Extraordinario'),
-                        Option(value: 'Modificación Presupuestaria')
-                      ],
-                      onChanged: (Option value) {
-                        if (value.value == 'Ordinario') {
-                          _nameController.text =
-                              'Presupuesto Ordinario ${DateTime.now().year} aprobado';
-                        }
-                        if (value.value == 'Extraordinario') {
-                          _nameController.text =
-                              'Presupuesto Extraordinario ${DateTime.now().year}';
-                        }
+                  InputSelect(
+                    labelText: 'Tipo de presupuesto',
+                    controller: _categoryController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Por favor, selecciona un tipo';
+                      }
+                      return null;
+                    },
+                    options: [
+                      Option(value: 'Ordinario'),
+                      Option(value: 'Extraordinario'),
+                      Option(value: 'Modificación Presupuestaria')
+                    ],
+                    onChanged: (Option value) {
+                      if (value.value == 'Ordinario') {
+                        _nameController.text =
+                            'Presupuesto Ordinario ${DateTime.now().year} ${widget.tipo}';
+                      }
+                      if (value.value == 'Extraordinario') {
+                        _nameController.text =
+                            'Presupuesto Extraordinario ${DateTime.now().year}';
+                      }
 
-                        if (value.value == 'Modificación Presupuestaria') {
-                          _nameController.text = 'Modificación Presupuestaria';
-                        }
-                      },
-                    ),
+                      if (value.value == 'Modificación Presupuestaria') {
+                        _nameController.text = 'Modificación Presupuestaria';
+                      }
+                    },
+                  ),
                   Input(
                     labelText: 'Nombre del Documento',
                     controller: _nameController,

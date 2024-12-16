@@ -44,7 +44,7 @@ class InformePersonalBloc
       final list = await repository.getAll();
       final filter = list
           .where(
-            (x) => x.tipo.contains('Actividades'),
+            (x) => x.tipo.contains('Viajes'),
           )
           .toList();
       emit(
