@@ -2,6 +2,8 @@ import 'package:get_it/get_it.dart';
 import 'package:portal_muni/features/actas/bloc/actas_bloc.dart';
 import 'package:portal_muni/features/actas/repository/actas_repo.dart';
 import 'package:portal_muni/features/actas/repository/acuerdo_repo.dart';
+import 'package:portal_muni/features/directorio_telefonico/bloc/directorio_bloc.dart';
+import 'package:portal_muni/features/directorio_telefonico/respository/directorio_repo.dart';
 import 'package:portal_muni/features/ejecucion/bloc/ejecucion_bloc.dart';
 import 'package:portal_muni/features/ejecucion/repository/ejecucion_repository.dart';
 import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimiento_bloc.dart';
@@ -49,4 +51,7 @@ Future<void> injection() async {
   sl.registerSingleton<AcuerdoRepo>(AcuerdoRepo());
   sl.registerSingleton<ActasRepo>(ActasRepo());
   sl.registerFactory<ActasBloc>(() => ActasBloc(sl(), sl()));
+  // Directorio Telefonico
+  sl.registerSingleton<DirectorioRepo>(DirectorioRepo());
+  sl.registerFactory<DirectorioBloc>(() => DirectorioBloc(sl()));
 }

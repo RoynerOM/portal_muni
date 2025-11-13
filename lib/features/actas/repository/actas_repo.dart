@@ -21,9 +21,13 @@ class ActasRepo {
   Future<void> post(File file, ActaModel model) async {
     var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
     request.fields['tipo'] = model.tipo;
-    request.fields['fecha'] = model.fecha;
+    request.fields['fecha'] = model.fecha!.toIso8601String();
     request.fields['year'] = model.year;
     request.fields['nombre'] = model.nombre;
+    request.fields['fecha_publicacion'] =
+        model.fechaPublicacion!.toIso8601String();
+    request.fields['es_ordinario'] = model.esOrdinario;
+
     request.files.add(await http.MultipartFile.fromPath('url', file.path));
 
     var response = await request.send();

@@ -24,8 +24,11 @@ class _RegistroActaState extends State<RegistroActa> {
   final _urlController = TextEditingController();
   final _docController = TextEditingController();
   final _yearController = TextEditingController();
-
+  final _fechaController = TextEditingController();
+  final _OrdinarioController = TextEditingController();
+  DateTime _fechaPublicacion = DateTime.now();
   File? _selectedFile;
+  int esOrdinario = 0;
   void clear() {
     _urlController.clear();
     _docController.clear();
@@ -104,6 +107,32 @@ class _RegistroActaState extends State<RegistroActa> {
                       return null;
                     },
                   ),
+                  InputDate(
+                    labelText: 'Fecha Publicación',
+                    controller: _fechaController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Por favor, ingresa un nombre';
+                      }
+                      return null;
+                    },
+                    onChanged: (DateTime? value) {
+                      if (value != null) {
+                        setState(() {
+                          _fechaPublicacion = value;
+                        });
+                      }
+                    },
+                  ),
+                  InputSelect(
+                    labelText: "Tipo Acta",
+                    controller: _OrdinarioController,
+                    options: [
+                      Option(index: 1, value: "Si"),
+                      Option(index: 0, value: "No")
+                    ],
+                    onChanged: (Option value) {},
+                  ),
                   Input(
                     maskText: MaskText(mask: '####'),
                     labelText: 'Año de emisión',
@@ -148,40 +177,42 @@ class _RegistroActaState extends State<RegistroActa> {
     );
   }
 
-  Widget onSend() => InkWell(
-        onTap: () {
-          if (_formKey.currentState!.validate() && _selectedFile != null) {
-            BlocProvider.of<ActasBloc>(context).add(
-              CreateActaEvt(
-                file: _selectedFile!,
-                model: ActaModel(
-                  id: '',
-                  year: _yearController.text.trim(),
-                  fecha: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-                  url: '',
-                  nombre: _nameController.text,
-                  tipo: widget.tipo,
-                ),
-              ),
-            );
-          }
-        },
-        child: Container(
-          alignment: Alignment.center,
-          width: 720,
-          constraints: const BoxConstraints(maxWidth: 720),
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-          decoration: BoxDecoration(
-              color: HexColor('3A85FF'),
-              borderRadius: BorderRadius.circular(20)),
-          child: const Text(
-            'Guardar',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
+  Widget onSend() {
+    final modelPost = ActaModel(
+      id: '',
+      year: _yearController.text.trim(),
+      fecha: DateTime.now(),
+      url: '',
+      nombre: _nameController.text,
+      tipo: widget.tipo,
+      fechaPublicacion: _fechaPublicacion,
+      esOrdinario: esOrdinario.toString(),
+    );
+
+    return InkWell(
+      onTap: () {
+        if (_formKey.currentState!.validate() && _selectedFile != null) {
+          BlocProvider.of<ActasBloc>(context).add(
+            CreateActaEvt(file: _selectedFile!, model: modelPost),
+          );
+        }
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: 720,
+        constraints: const BoxConstraints(maxWidth: 720),
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+        decoration: BoxDecoration(
+            color: HexColor('3A85FF'), borderRadius: BorderRadius.circular(20)),
+        child: const Text(
+          'Guardar',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
           ),
         ),
-      );
+      ),
+    );
+  }
 }
