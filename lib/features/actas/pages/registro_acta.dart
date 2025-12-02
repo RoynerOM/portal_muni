@@ -128,10 +128,16 @@ class _RegistroActaState extends State<RegistroActa> {
                     labelText: "Tipo Acta",
                     controller: _OrdinarioController,
                     options: [
-                      Option(index: 1, value: "Si"),
-                      Option(index: 0, value: "No")
+                      Option(index: 1, value: "Ordinario"),
+                      Option(index: 0, value: "Extraordinario")
                     ],
-                    onChanged: (Option value) {},
+                    onChanged: (Option? value) {
+                      if (value != null) {
+                        setState(() {
+                          esOrdinario = value.index!;
+                        });
+                      }
+                    },
                   ),
                   Input(
                     maskText: MaskText(mask: '####'),
