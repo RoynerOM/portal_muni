@@ -1,0 +1,19 @@
+- Emprendimiento
+    Bitacora de participaciones en proyectos(Talleres, Cursos, Inversion)
+
+Proyectos
+    - ID
+    - Nombre
+    - Institucion
+    - Fecha
+    - Tipo/Categoria
+    - Estado(Proceso, Terminado, Demorado)
+    - Borrado(Borrado Logico en caso de requerirlo)
+    - ID Emprendimiento(En caso de ser de uno a muchos)
+
+Si es de muchos a muchos
+
+Proyecto-Emprendimiento
+    - ID
+    - ID Proyecto
+    - ID Emprendimiento

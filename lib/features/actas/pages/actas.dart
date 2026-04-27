@@ -70,9 +70,7 @@ class Actas extends StatelessWidget {
                   (_, index) {
                     return CenterChildList(
                       child: ActaItem(
-                        nombre: state.filterListActas[index].nombre
-                            .split('.')
-                            .first,
+                        nombre: state.filterListActas[index].nombre,
                         year: state.filterListActas[index].year,
                         onDelete: () {
                           BlocProvider.of<ActasBloc>(context).add(

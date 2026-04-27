@@ -20,19 +20,22 @@ class RegistroActa extends StatefulWidget {
 
 class _RegistroActaState extends State<RegistroActa> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
+  final _nameController = TextEditingController(text: 'Acta No.');
   final _urlController = TextEditingController();
   final _docController = TextEditingController();
-  final _yearController = TextEditingController();
+  final _yearController =
+      TextEditingController(text: DateTime.now().year.toString());
   final _fechaController = TextEditingController();
-  final _OrdinarioController = TextEditingController();
+  final _ordinarioController = TextEditingController();
+
   DateTime _fechaPublicacion = DateTime.now();
   File? _selectedFile;
-  int esOrdinario = 0;
+  int esOrdinario = 1;
   void clear() {
     _urlController.clear();
     _docController.clear();
-    _yearController.clear();
+    //  _yearController.clear();
+    _selectedFile = null;
   }
 
   Future<void> _selectFile() async {
@@ -126,10 +129,10 @@ class _RegistroActaState extends State<RegistroActa> {
                   ),
                   InputSelect(
                     labelText: "Tipo Acta",
-                    controller: _OrdinarioController,
+                    controller: _ordinarioController,
                     options: [
-                      Option(index: 1, value: "Ordinario"),
-                      Option(index: 0, value: "Extraordinario")
+                      Option(index: 0, value: "Extraordinaria"),
+                      Option(index: 1, value: "Ordinaria"),
                     ],
                     onChanged: (Option? value) {
                       if (value != null) {
@@ -152,7 +155,68 @@ class _RegistroActaState extends State<RegistroActa> {
                   ),
                   GestureDetector(
                     onTap: () async {
+                      /*
                       await _selectFile();
+
+                      //Usar solo en pruebas
+                      if (_selectedFile!.path.contains('Ordinaria')) {
+                        setState(() {
+                          esOrdinario = 1;
+                        });
+                        _ordinarioController.text = 'Ordinaria';
+                      }
+
+                      if (_selectedFile!.path.contains('Extraordinaria')) {
+                        setState(() {
+                          esOrdinario = 0;
+                        });
+                        _ordinarioController.text = 'Extraordinaria';
+                      }
+*/
+                      await _selectFile();
+
+                      String path = _selectedFile!.path;
+                      String fileName = path.split('/').last;
+
+                      // Tipo de acta
+                      if (fileName.contains('Ordinaria')) {
+                        setState(() {
+                          esOrdinario = 1;
+                        });
+                        _ordinarioController.text = 'Ordinaria';
+                      }
+
+                      if (fileName.contains('Extraordinaria')) {
+                        setState(() {
+                          esOrdinario = 0;
+                        });
+                        _ordinarioController.text = 'Extraordinaria';
+                      }
+
+                      // Extraer datos
+                      final regex = RegExp(
+                          r'Acta No\.(\d+-\d+)\s+\w+\s+(\d{2}\s\d{2}\s\d{4})');
+                      final match = regex.firstMatch(fileName);
+
+                      if (match != null) {
+                        String numero = match.group(1)!;
+                        String fecha = match.group(2)!;
+                        String numeroActa =
+                            numero.split("-").first.padLeft(4, '0');
+                        //print(numero.split("-").first.padLeft(4, '0'));
+                        // print(fecha.replaceAll(RegExp(r' '), '/'));
+                        String fechaCorrecta =
+                            fecha.replaceAll(RegExp(r' '), '/');
+
+                        _nameController.text = "Acta No.$numeroActa";
+
+                        DateTime parsedDate =
+                            DateFormat("dd/MM/yyyy").parse(fechaCorrecta);
+                        setState(() => _fechaPublicacion = parsedDate);
+                        _fechaController.text = fechaCorrecta;
+
+                        _yearController.text = numero.split("-").last;
+                      }
                     },
                     child: MouseRegion(
                       cursor: SystemMouseCursors.click,

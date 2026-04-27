@@ -4,16 +4,15 @@ import 'package:portal_muni/core/storage/storage.dart';
 import 'package:portal_muni/core/utils/hexcolor.dart';
 import 'package:portal_muni/features/actas/bloc/actas_bloc.dart';
 import 'package:portal_muni/features/directorio_telefonico/bloc/directorio_bloc.dart';
-//import 'package:portal_muni/features/directorio_telefonico/pages/lista_directorio.dart';
+import 'package:portal_muni/features/directorio_telefonico/pages/lista_directorio.dart';
 import 'package:portal_muni/features/ejecucion/bloc/ejecucion_bloc.dart';
 import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimiento_bloc.dart';
 import 'package:portal_muni/features/informe_institucional/bloc/informe_institucional_bloc.dart';
 import 'package:portal_muni/features/informe_personal/bloc/informe_personal_bloc.dart';
 //import 'package:portal_muni/features/informe_personal/pages/informes_personal.dart';
 import 'package:portal_muni/features/inicio/bloc/acceso_bloc.dart';
-import 'package:portal_muni/features/inicio/pages/temas_page.dart';
 //import 'package:portal_muni/features/inicio/pages/gestion_financiero.dart';
-//import 'package:portal_muni/features/inicio/pages/temas_page.dart';
+import 'package:portal_muni/features/inicio/pages/temas_page.dart';
 import 'package:portal_muni/features/plan_institucional/bloc/plan_institucional_bloc.dart';
 import 'package:portal_muni/features/presupuesto/bloc/presupuesto_bloc.dart';
 import 'package:portal_muni/features/report_finance/bloc/report_finance_bloc.dart';
@@ -118,7 +117,7 @@ class MyApp extends StatelessWidget {
         // home: const RrhhPage(),
         // home: const InformesDePersonal(),
         home: const TemasPage(),
-        // home: const ListaDirectorio(),
+        //home: const ListaDirectorio(),
       ),
     );
   }
