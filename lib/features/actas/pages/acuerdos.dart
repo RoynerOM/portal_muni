@@ -70,6 +70,7 @@ class Acuerdos extends StatelessWidget {
                   (_, index) {
                     return CenterChildList(
                       child: ActaItem(
+                        url: state.filterListAcuerdos[index].url,
                         isActa: false,
                         nombre: state.filterListAcuerdos[index].nombre
                             .split('.')

@@ -40,8 +40,13 @@ enum AppScreens {
 //
   informesPersonalInstitucional('Informes de personal institucional'),
   actividadesJerarcas('Programa de actividades de jerarcas'),
-  informesViajes('Informes de viajes');
+  informesViajes('Informes de viajes'),
+
   //
+  directorioTelefonico("Directorio Telefonico"),
+//
+  actas("Actas"),
+  acuerdos("Acuerdos");
 
   final String name;
   const AppScreens(this.name);
@@ -50,3 +55,36 @@ enum AppScreens {
 bool validarAcceso(AppScreens pantalla, List<AppScreens> accesos) {
   return accesos.any((x) => x == pantalla);
 }
+
+const pantallasPrincipales = [
+  // Presupuesto Proyectado y Aprobado
+  AppScreens.finanzasPublicas,
+  AppScreens.presupuestoProyectadoAprobado,
+  // Ejecución de Presupuesto
+  AppScreens.ejecucionPresupuesto,
+  AppScreens.reporteFinanciero,
+  // Planes institucionales
+  AppScreens.planesInstitucionales,
+  AppScreens.planesCumplimiento,
+  AppScreens.planesEstrategicoMunicipal,
+  AppScreens.planesAnualOperativo,
+  AppScreens.planesSectoriales,
+  //Cumplimiento de planes institucionales
+  AppScreens.cumplimientoPlanesInstitucionales,
+  //Informes institucionales
+  AppScreens.informesInstitucionales,
+  AppScreens.informesInstitucionalesEspecialesAuditoria,
+  AppScreens.informesAnualesAuditoria,
+  AppScreens.historicoInformesAuditoria,
+  AppScreens.informeArchivo,
+  AppScreens.informeCalificacionPersonal,
+  //Informes de personal institucional
+  AppScreens.informesPersonalInstitucional,
+  AppScreens.actividadesJerarcas,
+  AppScreens.informesViajes,
+  //Directorio Telefonico
+  AppScreens.directorioTelefonico,
+  //
+  AppScreens.actas,
+  AppScreens.acuerdos
+];

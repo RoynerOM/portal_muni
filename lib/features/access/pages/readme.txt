@@ -1,0 +1,2 @@
+Crear acordeon donde se visualize las lista de modulos con sus vistas asociadas
+En los items de la lista o tablas mostrar checkbox para habilitar el modulo y los accesos a ver eliminar agregar y actualizar en caso de que lo requieran

@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:portal_muni/features/access/bloc/access_bloc.dart';
+import 'package:portal_muni/features/access/models/access_manager.dart';
 import 'package:portal_muni/features/actas/bloc/actas_bloc.dart';
 import 'package:portal_muni/features/actas/repository/actas_repo.dart';
 import 'package:portal_muni/features/actas/repository/acuerdo_repo.dart';
@@ -54,4 +56,6 @@ Future<void> injection() async {
   // Directorio Telefonico
   sl.registerSingleton<DirectorioRepo>(DirectorioRepo());
   sl.registerFactory<DirectorioBloc>(() => DirectorioBloc(sl()));
+  sl.registerLazySingleton<AccesoManager>(() => AccesoManager());
+  sl.registerLazySingleton<AccessBloc>(() => AccessBloc(sl()));
 }

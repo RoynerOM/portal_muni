@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portal_muni/core/utils/helpers.dart';
 import 'package:portal_muni/features/actas/models/acta_model.dart';
 import 'package:portal_muni/features/actas/models/acuerdo_model.dart';
 import 'package:portal_muni/features/actas/repository/actas_repo.dart';
@@ -68,11 +69,16 @@ class ActasBloc extends Bloc<ActasEvent, ActasState> {
   Future<void> cargarActas(LoadActasEvt evt, Emit emit) async {
     try {
       final res = await Future.wait([actaRepo.getAll(), acuerdoRepo.getAll()]);
+      final actas = res[0] as List<ActaModel>;
+
+      actas.sort(
+          (a, b) => extraerNumero(a.nombre).compareTo(extraerNumero(b.nombre)));
+
       emit(
         ActasState(
           react: ActasReact.getSuccess,
-          listActas: res[0] as List<ActaModel>,
-          filterListActas: res[0] as List<ActaModel>,
+          listActas: actas,
+          filterListActas: actas,
           listAcuerdos: res[1] as List<AcuerdoModel>,
           filterListAcuerdos: res[1] as List<AcuerdoModel>,
         ),

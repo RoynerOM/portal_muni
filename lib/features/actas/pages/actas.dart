@@ -70,6 +70,7 @@ class Actas extends StatelessWidget {
                   (_, index) {
                     return CenterChildList(
                       child: ActaItem(
+                        url: state.filterListActas[index].url,
                         nombre: state.filterListActas[index].nombre,
                         year: state.filterListActas[index].year,
                         onDelete: () {

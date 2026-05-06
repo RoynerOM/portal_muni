@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portal_muni/core/storage/storage.dart';
 import 'package:portal_muni/core/utils/hexcolor.dart';
+import 'package:portal_muni/features/access/bloc/access_bloc.dart';
+import 'package:portal_muni/features/access/pages/home_page.dart';
 import 'package:portal_muni/features/actas/bloc/actas_bloc.dart';
+import 'package:portal_muni/features/access/models/access_manager.dart';
 import 'package:portal_muni/features/directorio_telefonico/bloc/directorio_bloc.dart';
-import 'package:portal_muni/features/directorio_telefonico/pages/lista_directorio.dart';
+//import 'package:portal_muni/features/directorio_telefonico/pages/lista_directorio.dart';
 import 'package:portal_muni/features/ejecucion/bloc/ejecucion_bloc.dart';
 import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimiento_bloc.dart';
 import 'package:portal_muni/features/informe_institucional/bloc/informe_institucional_bloc.dart';
@@ -12,7 +15,6 @@ import 'package:portal_muni/features/informe_personal/bloc/informe_personal_bloc
 //import 'package:portal_muni/features/informe_personal/pages/informes_personal.dart';
 import 'package:portal_muni/features/inicio/bloc/acceso_bloc.dart';
 //import 'package:portal_muni/features/inicio/pages/gestion_financiero.dart';
-import 'package:portal_muni/features/inicio/pages/temas_page.dart';
 import 'package:portal_muni/features/plan_institucional/bloc/plan_institucional_bloc.dart';
 import 'package:portal_muni/features/presupuesto/bloc/presupuesto_bloc.dart';
 import 'package:portal_muni/features/report_finance/bloc/report_finance_bloc.dart';
@@ -21,9 +23,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Storage().init();
   await Future.wait([
     injection(),
-    Storage().init(),
+    AccesoManager().init(),
   ]);
   runApp(const MyApp());
 }
@@ -35,6 +38,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<AccessBloc>(
+          create: (context) => sl()..add(LoadAccess()),
+        ),
         BlocProvider<AccesoBloc>(
           create: (context) => sl()..add(CargarAccesosEvent()),
         ),
@@ -116,8 +122,10 @@ class MyApp extends StatelessWidget {
         // home: const InformesInstitucionales(),
         // home: const RrhhPage(),
         // home: const InformesDePersonal(),
-        home: const TemasPage(),
+        // home: const TemasPage(),
         //home: const ListaDirectorio(),
+        // home: const AdminLoginPage(),
+        home: const HomePage(),
       ),
     );
   }

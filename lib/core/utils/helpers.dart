@@ -3,6 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:portal_muni/app/dialog/banner_ui.dart';
+import 'package:portal_muni/core/enums/screens.dart';
+import 'package:portal_muni/features/access/models/access_manager.dart';
+import 'package:portal_muni/features/actas/pages/actas.dart';
+import 'package:portal_muni/features/actas/pages/acuerdos.dart';
+import 'package:portal_muni/features/directorio_telefonico/pages/lista_directorio.dart';
+import 'package:portal_muni/features/ejecucion/pages/ejecuciones.dart';
+import 'package:portal_muni/features/informe_cumplimiento/pages/informes_cumplimientos.dart';
+import 'package:portal_muni/features/informe_institucional/pages/informes_institucionales.dart';
+import 'package:portal_muni/features/informe_personal/pages/informes_personal.dart';
+import 'package:portal_muni/features/inicio/pages/gestion_financiero.dart';
+import 'package:portal_muni/features/plan_institucional/pages/planes_institucionales.dart';
+import 'package:portal_muni/features/presupuesto/pages/presupuesto.dart';
+import 'package:portal_muni/features/report_finance/pages/registro_reporte.dart';
 import 'package:rxdart/rxdart.dart';
 
 void go(BuildContext context, {required Widget to}) {
@@ -58,4 +71,67 @@ void showAlertSuccess(BuildContext context, String title, String message) {
 String formatFechaCorta(DateTime date) {
   // Formato corto: "Lun, 10 ago 2024"
   return 'Publicado el ${DateFormat('EEE, d MMM yyyy', 'es_ES').format(date)}';
+}
+
+int extraerNumero(String texto) {
+  final match = RegExp(r'\d+').firstMatch(texto);
+  return match != null ? int.parse(match.group(0)!) : 0;
+}
+
+final Map<AppScreens, WidgetBuilder> appRoutes = {
+  AppScreens.finanzasPublicas: (_) => const FinanceroPage(),
+  AppScreens.presupuestoProyectadoAprobado: (_) => const PresupuestoPage(),
+  AppScreens.ejecucionPresupuesto: (_) => const EjecucionesPage(),
+  AppScreens.reporteFinanciero: (_) => const RegistroReportePage(),
+  //
+  AppScreens.planesInstitucionales: (_) => const PlanesInstitucionales(),
+  AppScreens.planesCumplimiento: (_) => const InformesCumplimientos(),
+  AppScreens.planesEstrategicoMunicipal: (_) => const InformesCumplimientos(),
+  AppScreens.planesAnualOperativo: (_) => const InformesCumplimientos(),
+  AppScreens.planesSectoriales: (_) => const InformesCumplimientos(),
+  AppScreens.cumplimientoPlanesInstitucionales: (_) =>
+      const InformesCumplimientos(),
+  //
+  AppScreens.informesInstitucionales: (_) => const InformesInstitucionales(),
+  AppScreens.informesInstitucionalesEspecialesAuditoria: (_) =>
+      const FinanceroPage(),
+  AppScreens.informesAnualesAuditoria: (_) => const ListaDirectorio(),
+  AppScreens.historicoInformesAuditoria: (_) => const ListaDirectorio(),
+  AppScreens.informeArchivo: (_) => const ListaDirectorio(),
+  AppScreens.informeCalificacionPersonal: (_) => const ListaDirectorio(),
+  AppScreens.informesPersonalInstitucional: (_) => const InformesDePersonal(),
+  //AppScreens.actividadesJerarcas: (_) => const InformesDePersonal(),
+  //AppScreens.informesViajes: (_) => const InformesDePersonal(),
+  AppScreens.directorioTelefonico: (_) => const ListaDirectorio(),
+  //
+  AppScreens.actas: (_) => const Actas(),
+  AppScreens.acuerdos: (_) => const Acuerdos(),
+};
+
+void abrirPantalla(
+  BuildContext context,
+  AppScreens screen,
+) {
+  final acceso = AccesoManager();
+
+  if (!acceso.puedeAcceder(screen)) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Acceso no permitido")),
+    );
+    return;
+  }
+
+  final builder = appRoutes[screen];
+
+  if (builder == null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Pantalla no configurada")),
+    );
+    return;
+  }
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: builder),
+  );
 }

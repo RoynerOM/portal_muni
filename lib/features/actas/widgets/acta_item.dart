@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:portal_muni/core/utils/helpers.dart';
 import 'package:portal_muni/core/utils/hexcolor.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ActaItem extends StatelessWidget {
   final String nombre;
   final String year;
   final bool isActa;
+  final String url;
   final VoidCallback onDelete;
 
   const ActaItem({
@@ -14,6 +16,7 @@ class ActaItem extends StatelessWidget {
     required this.nombre,
     required this.year,
     required this.onDelete,
+    required this.url,
     this.isActa = true,
   });
 
@@ -31,6 +34,15 @@ class ActaItem extends StatelessWidget {
         ),
       ),
       child: ListTile(
+        onTap: () async {
+          final Uri urlParsed = Uri.parse(url);
+
+          if (await canLaunchUrl(urlParsed)) {
+            await launchUrl(urlParsed, mode: LaunchMode.externalApplication);
+          } else {
+            throw 'No se pudo abrir la URL';
+          }
+        },
         contentPadding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
         leading: const Icon(
           Icons.menu_book_sharp,
