@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portal_muni/app/buttons/default_button.dart';
+import 'package:portal_muni/app/text_field/text_field_ui.dart';
 import 'package:portal_muni/features/access/pages/admin_config.dart';
 
 class AdminLoginPage extends StatefulWidget {
@@ -10,7 +12,7 @@ class AdminLoginPage extends StatefulWidget {
 
 class _AdminLoginPageState extends State<AdminLoginPage> {
   final controller = TextEditingController();
-  final String password = "1234"; // ⚠️ simple
+  final String password = "1234";
 
   void validar() {
     if (controller.text == password) {
@@ -33,16 +35,27 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            TextField(
+            Input(
+              labelText: '',
               controller: controller,
+              hintText: 'Contraseña',
               obscureText: true,
-              decoration: const InputDecoration(labelText: "Contraseña"),
+              onFieldSubmitted: (value) {
+                validar();
+              },
+              validator: (value) {
+                //Validar el formato de normalizar
+                if (value!.isEmpty) {
+                  return 'Campo no puede estar en blanco';
+                }
+                return null;
+              },
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: validar,
-              child: const Text("Ingresar"),
-            )
+            DefaultButton(
+              label: 'Ingresar',
+              onTap: validar,
+            ),
           ],
         ),
       ),

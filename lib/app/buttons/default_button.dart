@@ -16,8 +16,8 @@ class DefaultButton extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment(0.8, 1),
             colors: <Color>[
-              Color(0xff27AFE8),
-              Color(0xff2CD97B),
+              Color.fromRGBO(59, 134, 249, 1),
+              Color.fromRGBO(59, 134, 249, 1),
             ], // Grad
           ),
         ),
