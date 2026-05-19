@@ -91,6 +91,12 @@ class _RegistroInformeInstitucionalPageState
         listener: (context, state) {
           if (state.react == React.postSuccess) {
             showAlertSuccess('Ok', 'Elemento guardado!');
+            if (widget.tipo == "Archivo") {
+              context
+                  .read<InformeInstitucionalBloc>()
+                  .add(LoadInformeArchivoEvt());
+            }
+
             clear();
           }
           if (state.react == React.postError) {

@@ -8,6 +8,8 @@ class LoadInformeEspecialAuditoriaEvt extends InformeInstitucionalEvent {}
 
 class LoadInformeAnualAuditoriaEvt extends InformeInstitucionalEvent {}
 
+class LoadInformeArchivoEvt extends InformeInstitucionalEvent {}
+
 class CreateInformeInstitucionalEvt extends InformeInstitucionalEvent {
   final File file;
   final InformeInstModel model;

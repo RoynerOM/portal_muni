@@ -52,6 +52,13 @@ class InformeInstitucionalBloc
           InformeInstitucionalState().copyWith(state, react: React.getLoading));
       await cargarInformesAnualAuditoria(event, emit);
     });
+
+    on<LoadInformeArchivoEvt>((event, emit) async {
+      emit(
+          InformeInstitucionalState().copyWith(state, react: React.getLoading));
+      await cargarInformesArchivo(event, emit);
+    });
+
     on<DeleteInformeInstitucionalEvt>((event, emit) async {
       emit(InformeInstitucionalState()
           .copyWith(state, react: React.deleteLoading));
@@ -132,6 +139,28 @@ class InformeInstitucionalBloc
       final filter = list
           .where(
             (x) => x.tipo.contains('Calificación de personal'),
+          )
+          .toList();
+
+      emit(
+        InformeInstitucionalState(
+          react: React.getSuccess,
+          list: filter,
+          filterList: filter,
+        ),
+      );
+    } catch (e) {
+      emit(InformeInstitucionalState(react: React.getError));
+    }
+  }
+
+  Future<void> cargarInformesArchivo(
+      LoadInformeArchivoEvt evt, Emit emit) async {
+    try {
+      final list = await repository.getAll();
+      final filter = list
+          .where(
+            (x) => x.tipo.contains('Archivo'),
           )
           .toList();
 

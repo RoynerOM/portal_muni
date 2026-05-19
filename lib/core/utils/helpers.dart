@@ -11,6 +11,7 @@ import 'package:portal_muni/features/directorio_telefonico/pages/lista_directori
 import 'package:portal_muni/features/ejecucion/pages/ejecuciones.dart';
 import 'package:portal_muni/features/informe_cumplimiento/pages/informe_auditoria.dart';
 import 'package:portal_muni/features/informe_cumplimiento/pages/informes_cumplimientos.dart';
+import 'package:portal_muni/features/informe_institucional/pages/informe_archivo.dart';
 import 'package:portal_muni/features/informe_institucional/pages/informe_historico.dart';
 import 'package:portal_muni/features/informe_institucional/pages/informes_anuales.dart';
 import 'package:portal_muni/features/informe_institucional/pages/informes_especiales.dart';
@@ -110,7 +111,7 @@ final Map<AppScreens, WidgetBuilder> appRoutes = {
   AppScreens.informesAnualesAuditoria: (_) => const InformesAnualesAuditoria(),
   AppScreens.historicoInformesAuditoria: (_) =>
       const InformeHistoricoAuditoria(),
-  AppScreens.informeArchivo: (_) => const ListaDirectorio(),
+  AppScreens.informeArchivo: (_) => const InformesArchivo(),
   AppScreens.informeCalificacionPersonal: (_) => const ListaDirectorio(),
   AppScreens.informesPersonalInstitucional: (_) => const InformesDePersonal(),
   //AppScreens.actividadesJerarcas: (_) => const InformesDePersonal(),

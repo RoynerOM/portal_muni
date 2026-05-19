@@ -7,7 +7,7 @@ import 'package:portal_muni/features/informe_cumplimiento/pages/informes_cumplim
 import 'package:portal_muni/features/informe_institucional/pages/informes_institucionales.dart';
 import 'package:portal_muni/features/informe_personal/pages/informes_personal.dart';
 import 'package:portal_muni/features/inicio/bloc/acceso_bloc.dart';
-import 'package:portal_muni/features/plan_institucional/pages/planes_institucionales.dart';
+//import 'package:portal_muni/features/plan_institucional/pages/planes_institucionales.dart';
 import 'package:portal_muni/features/presupuesto/pages/presupuesto.dart';
 
 import '../../report_finance/pages/reporte_financiero.dart';
