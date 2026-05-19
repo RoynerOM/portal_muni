@@ -9,7 +9,11 @@ import 'package:portal_muni/features/actas/pages/actas.dart';
 import 'package:portal_muni/features/actas/pages/acuerdos.dart';
 import 'package:portal_muni/features/directorio_telefonico/pages/lista_directorio.dart';
 import 'package:portal_muni/features/ejecucion/pages/ejecuciones.dart';
+import 'package:portal_muni/features/informe_cumplimiento/pages/informe_auditoria.dart';
 import 'package:portal_muni/features/informe_cumplimiento/pages/informes_cumplimientos.dart';
+import 'package:portal_muni/features/informe_institucional/pages/informe_historico.dart';
+import 'package:portal_muni/features/informe_institucional/pages/informes_anuales.dart';
+import 'package:portal_muni/features/informe_institucional/pages/informes_especiales.dart';
 import 'package:portal_muni/features/informe_institucional/pages/informes_institucionales.dart';
 import 'package:portal_muni/features/informe_personal/pages/informes_personal.dart';
 import 'package:portal_muni/features/inicio/pages/gestion_financiero.dart';
@@ -84,19 +88,28 @@ final Map<AppScreens, WidgetBuilder> appRoutes = {
   AppScreens.ejecucionPresupuesto: (_) => const EjecucionesPage(),
   AppScreens.reporteFinanciero: (_) => const RegistroReportePage(),
   //
+  //AppScreens.planesCumplimiento: (_) => const InformesCumplimientos(),
   AppScreens.planesInstitucionales: (_) => const PlanesInstitucionales(),
-  AppScreens.planesCumplimiento: (_) => const InformesCumplimientos(),
-  AppScreens.planesEstrategicoMunicipal: (_) => const InformesCumplimientos(),
-  AppScreens.planesAnualOperativo: (_) => const InformesCumplimientos(),
-  AppScreens.planesSectoriales: (_) => const InformesCumplimientos(),
+  // AppScreens.planesEstrategicoMunicipal: (_) => const InformesCumplimientos(),
+//  AppScreens.planesAnualOperativo: (_) => const InformesCumplimientos(),
+//  AppScreens.planesSectoriales: (_) => const InformesCumplimientos(),
+  // AppScreens.informesCumplimiento: (_) => const InformesCumplimientos(),
+  // AppScreens.informeAnualGestion: (_) => const InformesCumplimientos(),
+  // informesSeguimientoRecomendaciones
   AppScreens.cumplimientoPlanesInstitucionales: (_) =>
       const InformesCumplimientos(),
+  AppScreens.informesSeguimientoRecomendaciones: (_) =>
+      const InformeAuditoria(),
   //
-  AppScreens.informesInstitucionales: (_) => const InformesInstitucionales(),
+  AppScreens.informesInstitucionales: (_) => const InformesInstitucionales(
+        title: 'Informes Institucionales',
+        type: 0,
+      ),
   AppScreens.informesInstitucionalesEspecialesAuditoria: (_) =>
-      const FinanceroPage(),
-  AppScreens.informesAnualesAuditoria: (_) => const ListaDirectorio(),
-  AppScreens.historicoInformesAuditoria: (_) => const ListaDirectorio(),
+      const InformesEspecialesAuditoria(),
+  AppScreens.informesAnualesAuditoria: (_) => const InformesAnualesAuditoria(),
+  AppScreens.historicoInformesAuditoria: (_) =>
+      const InformeHistoricoAuditoria(),
   AppScreens.informeArchivo: (_) => const ListaDirectorio(),
   AppScreens.informeCalificacionPersonal: (_) => const ListaDirectorio(),
   AppScreens.informesPersonalInstitucional: (_) => const InformesDePersonal(),

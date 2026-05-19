@@ -21,15 +21,19 @@ enum AppScreens {
   eliminarReporteFinanciero('Eliminar Reporte Financiero'),
 
   // Planes y cumplimiento
-  planesCumplimiento('Planes y cumplimiento'),
+  //planesCumplimiento('Planes y cumplimiento'),
   planesInstitucionales('Planes Institucionales'),
   planesEstrategicoMunicipal('Plan estratégico municipal'),
   planesAnualOperativo('Plan anual operativo'),
   planesSectoriales('Otros planes específicos o sectoriales'),
-  //
+  //Cumplimiento de planes institucionales
+  informesCumplimiento('Informes de cumplimiento'),
+  informeAnualGestion('Informes anual de gestión'),
   cumplimientoPlanesInstitucionales('Cumplimiento de planes institucionales'),
+  informesSeguimientoRecomendaciones(
+      'Informes de seguimiento a las recomendaciones'),
   // Informes institucionales
-  informesInstitucionalesPersonal('Informes institucionales y de personal'),
+  //informesInstitucionalesPersonal('Informes institucionales y de personal'),
   informesInstitucionales('Informes Institucionales'),
   informesInstitucionalesEspecialesAuditoria(
       'Informes Especiales de Auditoría'),
@@ -64,13 +68,16 @@ const pantallasPrincipales = [
   AppScreens.ejecucionPresupuesto,
   AppScreens.reporteFinanciero,
   // Planes institucionales
-  AppScreens.planesInstitucionales,
-  AppScreens.planesCumplimiento,
-  AppScreens.planesEstrategicoMunicipal,
-  AppScreens.planesAnualOperativo,
-  AppScreens.planesSectoriales,
-  //Cumplimiento de planes institucionales
-  AppScreens.cumplimientoPlanesInstitucionales,
+  // AppScreens.planesInstitucionales,
+  // AppScreens.planesCumplimiento,
+  // AppScreens.planesEstrategicoMunicipal,
+  // AppScreens.planesAnualOperativo,
+  // AppScreens.planesSectoriales,
+  // Cumplimiento de planes institucionales
+  // AppScreens.cumplimientoPlanesInstitucionales,
+  AppScreens.informesCumplimiento,
+  AppScreens.informeAnualGestion,
+  AppScreens.informesSeguimientoRecomendaciones,
   //Informes institucionales
   AppScreens.informesInstitucionales,
   AppScreens.informesInstitucionalesEspecialesAuditoria,

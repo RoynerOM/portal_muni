@@ -11,9 +11,40 @@ import 'package:portal_muni/features/informe_institucional/pages/registro_inform
 import 'package:portal_muni/features/informe_institucional/widgets/filtro.dart';
 import 'package:portal_muni/features/informe_institucional/widgets/informe_item.dart';
 
-class InformesInstitucionales extends StatelessWidget {
-  const InformesInstitucionales({super.key});
+class InformesInstitucionales extends StatefulWidget {
+  final String title;
+  final int type;
+  const InformesInstitucionales(
+      {super.key, required this.title, required this.type});
 
+  @override
+  State<InformesInstitucionales> createState() =>
+      _InformesInstitucionalesState();
+}
+
+class _InformesInstitucionalesState extends State<InformesInstitucionales> {
+  @override
+  void initState() {
+    if (widget.type == 0) {
+      context
+          .read<InformeInstitucionalBloc>()
+          .add(LoadInformeEspecialAuditoriaEvt());
+    }
+
+    if (widget.type == 1) {
+      context
+          .read<InformeInstitucionalBloc>()
+          .add(LoadInformeAnualAuditoriaEvt());
+    }
+
+    if (widget.type == 2) {
+      BlocProvider.of<InformeInstitucionalBloc>(context)
+          .add(LoadInformeHistoricoEvt());
+    }
+    super.initState();
+  }
+
+// 0 = informes especiales
   @override
   Widget build(BuildContext context) {
     void showAlertError(String title, String message) {
@@ -28,14 +59,27 @@ class InformesInstitucionales extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        //  title: const Text('Informes Institucionales'),
-        // title: const Text('Informe del archivo institucional'),
-        title: const Text('Informes de calificación del personal'),
+        title: Text(widget.title),
         actions: [
           RefreshIcon(
             onPressed: () {
-              BlocProvider.of<InformeInstitucionalBloc>(context)
-                  .add(LoadInformeInstitucionalEvt());
+              if (widget.type == 0) {
+                context
+                    .read<InformeInstitucionalBloc>()
+                    .add(LoadInformeEspecialAuditoriaEvt());
+              }
+
+              if (widget.type == 1) {
+                context
+                    .read<InformeInstitucionalBloc>()
+                    .add(LoadInformeAnualAuditoriaEvt());
+              }
+
+              if (widget.type == 2) {
+                context
+                    .read<InformeInstitucionalBloc>()
+                    .add(LoadInformeHistoricoEvt());
+              }
             },
           )
         ],
@@ -70,7 +114,9 @@ class InformesInstitucionales extends StatelessWidget {
                 child: Center(
                   child: SizedBox(
                     width: Device.media(context),
-                    child: const FiltrosBusqueda(),
+                    child: const FiltrosBusqueda(
+                      type: '',
+                    ),
                   ),
                 ),
               ),
@@ -85,7 +131,8 @@ class InformesInstitucionales extends StatelessWidget {
                           BlocProvider.of<InformeInstitucionalBloc>(context)
                               .add(
                             DeleteInformeInstitucionalEvt(
-                                state.filterList[index].id),
+                                state.filterList[index].id,
+                                state.filterList[index].tipo),
                           );
                         },
                       ),
@@ -98,19 +145,57 @@ class InformesInstitucionales extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: HexColor('3B86F9'),
-        foregroundColor: Colors.white,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const RegistroInformeInstitucionalPage(
-                tipo: 'Calificación de personal',
-              ),
-            ),
-          );
-          /*
+      floatingActionButton: widget.type != 2
+          ? FloatingActionButton(
+              backgroundColor: HexColor('3B86F9'),
+              foregroundColor: Colors.white,
+              onPressed: () {
+                if (widget.type == 0) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const RegistroInformeInstitucionalPage(
+                        tipo: 'Especial',
+                      ),
+                    ),
+                  );
+                }
+                if (widget.type == 1) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const RegistroInformeInstitucionalPage(
+                        tipo: 'Anual',
+                      ),
+                    ),
+                  );
+                }
+                if (widget.type == 2) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const RegistroInformeInstitucionalPage(
+                        tipo: 'Calificación de personal',
+                      ),
+                    ),
+                  );
+                }
+                if (widget.type == 3) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const RegistroInformeInstitucionalPage(
+                        tipo: 'Calificación de personal',
+                      ),
+                    ),
+                  );
+                }
+
+                /*
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
@@ -186,9 +271,10 @@ class InformesInstitucionales extends StatelessWidget {
               ],
             ),
           );*/
-        },
-        child: const Icon(Icons.add),
-      ),
+              },
+              child: const Icon(Icons.add),
+            )
+          : null,
     );
   }
 }

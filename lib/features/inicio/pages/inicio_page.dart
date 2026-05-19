@@ -64,44 +64,44 @@ class _MenuScreenState extends State<MenuScreen> {
                           ],
                         ),
                       ),
-                    if (validarAcceso(AppScreens.planesCumplimiento, accesos))
-                      CenterChildList(
-                        child: _crearModulo(
-                          'Planes y cumplimiento',
-                          Icons.account_balance_wallet,
-                          context,
-                          HexColor('FFA500'),
-                          [
-                            if (validarAcceso(
-                                AppScreens.planesInstitucionales, accesos))
-                              _Submodulo('Planes Institucionales'),
-                            if (validarAcceso(
-                                AppScreens.cumplimientoPlanesInstitucionales,
-                                accesos))
-                              _Submodulo(
-                                  'Cumplimiento de planes institucionales'),
-                          ],
-                        ),
+                    //   if (validarAcceso(AppScreens.planesCumplimiento, accesos))
+                    CenterChildList(
+                      child: _crearModulo(
+                        'Planes y cumplimiento',
+                        Icons.account_balance_wallet,
+                        context,
+                        HexColor('FFA500'),
+                        [
+                          //   if (validarAcceso(
+                          //     AppScreens.planesInstitucionales, accesos))
+                          _Submodulo('Planes Institucionales'),
+                          if (validarAcceso(
+                              AppScreens.cumplimientoPlanesInstitucionales,
+                              accesos))
+                            _Submodulo(
+                                'Cumplimiento de planes institucionales'),
+                        ],
                       ),
-                    if (validarAcceso(
-                        AppScreens.informesInstitucionalesPersonal, accesos))
-                      CenterChildList(
-                        child: _crearModulo(
-                          'Informes institucionales y de personal',
-                          Icons.account_balance_wallet,
-                          context,
-                          HexColor('ADD8E6'),
-                          [
-                            if (validarAcceso(
-                                AppScreens.informesInstitucionales, accesos))
-                              _Submodulo('Informes Institucionales'),
-                            if (validarAcceso(
-                                AppScreens.informesPersonalInstitucional,
-                                accesos))
-                              _Submodulo('Informes de personal institucional'),
-                          ],
-                        ),
-                      ), /*
+                    ),
+                    //  if (validarAcceso(
+                    //    AppScreens.informesInstitucionalesPersonal, accesos))
+                    CenterChildList(
+                      child: _crearModulo(
+                        'Informes institucionales y de personal',
+                        Icons.account_balance_wallet,
+                        context,
+                        HexColor('ADD8E6'),
+                        [
+                          if (validarAcceso(
+                              AppScreens.informesInstitucionales, accesos))
+                            _Submodulo('Informes Institucionales'),
+                          if (validarAcceso(
+                              AppScreens.informesPersonalInstitucional,
+                              accesos))
+                            _Submodulo('Informes de personal institucional'),
+                        ],
+                      ),
+                    ), /*
                     if (validarAcceso(AppScreens.finanzasPublicas, accesos))
                       CenterChildList(
                         child: _crearModulo(
@@ -249,16 +249,19 @@ class PantallaView extends StatelessWidget {
       return const ReporteFinancieroPage();
     }
 
-    if (AppScreens.planesInstitucionales.name == moduloNombre) {
-      return const PlanesInstitucionales();
-    }
+    //  if (AppScreens.planesInstitucionales.name == moduloNombre) {
+    //   return const PlanesInstitucionales();
+    // }
 
     if (AppScreens.cumplimientoPlanesInstitucionales.name == moduloNombre) {
       return const InformesCumplimientos();
     }
 
     if (AppScreens.informesInstitucionales.name == moduloNombre) {
-      return const InformesInstitucionales();
+      return const InformesInstitucionales(
+        title: 'Informes institucionales',
+        type: 0,
+      );
     }
 
     if (AppScreens.informesPersonalInstitucional.name == moduloNombre) {

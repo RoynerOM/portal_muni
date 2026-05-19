@@ -42,7 +42,7 @@ const appModules = [
     titulo: "Finanzas Públicas",
     icono: Icons.account_balance,
     screens: [
-      AppScreens.finanzasPublicas,
+      // AppScreens.finanzasPublicas,
       AppScreens.presupuestoProyectadoAprobado,
       AppScreens.ejecucionPresupuesto,
       AppScreens.reporteFinanciero,
@@ -53,12 +53,15 @@ const appModules = [
     icono: Icons.fact_check,
     screens: [
       AppScreens.planesInstitucionales,
-      AppScreens.planesCumplimiento,
-      AppScreens.planesEstrategicoMunicipal,
-      AppScreens.planesAnualOperativo,
-      AppScreens.planesSectoriales,
+      //AppScreens.planesCumplimiento,
+      //AppScreens.planesEstrategicoMunicipal,
+      //AppScreens.planesAnualOperativo,
+      // AppScreens.planesSectoriales,
       //
+      //AppScreens.informesCumplimiento,
+      // AppScreens.informeAnualGestion,
       AppScreens.cumplimientoPlanesInstitucionales,
+      AppScreens.informesSeguimientoRecomendaciones
     ],
   ),
   AppModule(

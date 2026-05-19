@@ -16,8 +16,7 @@ class FiltrosBusqueda extends StatefulWidget {
 class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
   final tipoController = TextEditingController();
   final nombreController = TextEditingController();
-  final yearController =
-      TextEditingController(text: DateTime.now().year.toString());
+  final yearController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     bool media =
@@ -41,7 +40,7 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
                     : const BoxConstraints(minWidth: 250, maxWidth: 350),
                 child: Input(
                   controller: nombreController,
-                  hintText: 'Buscar por nombre o año',
+                  hintText: 'Buscar por nombre',
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.search),
                   ),

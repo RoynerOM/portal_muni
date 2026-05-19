@@ -57,11 +57,9 @@ class MyApp extends StatelessWidget {
           create: (context) => sl()..add(LoadPlanInstitucionalEvt()),
         ),
         BlocProvider<InformeCumplimientoBloc>(
-          create: (context) => sl()..add(LoadInformeCumplimientoEvt()),
+          create: (context) => sl(),
         ),
-        BlocProvider<InformeInstitucionalBloc>(
-          create: (context) => sl()..add(LoadInformeInstitucionalEvt()),
-        ),
+        BlocProvider<InformeInstitucionalBloc>(create: (context) => sl()),
         BlocProvider<InformePersonalBloc>(
           create: (context) => sl()..add(LoadInformePersonalEvt()),
         ),

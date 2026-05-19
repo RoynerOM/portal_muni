@@ -2,7 +2,11 @@ part of 'informe_institucional_bloc.dart';
 
 abstract class InformeInstitucionalEvent {}
 
-class LoadInformeInstitucionalEvt extends InformeInstitucionalEvent {}
+class LoadInformeHistoricoEvt extends InformeInstitucionalEvent {}
+
+class LoadInformeEspecialAuditoriaEvt extends InformeInstitucionalEvent {}
+
+class LoadInformeAnualAuditoriaEvt extends InformeInstitucionalEvent {}
 
 class CreateInformeInstitucionalEvt extends InformeInstitucionalEvent {
   final File file;
@@ -12,7 +16,8 @@ class CreateInformeInstitucionalEvt extends InformeInstitucionalEvent {
 
 class DeleteInformeInstitucionalEvt extends InformeInstitucionalEvent {
   final String id;
-  DeleteInformeInstitucionalEvt(this.id);
+  final String type;
+  DeleteInformeInstitucionalEvt(this.id, this.type);
 }
 
 class FiltrosEvt extends InformeInstitucionalEvent {

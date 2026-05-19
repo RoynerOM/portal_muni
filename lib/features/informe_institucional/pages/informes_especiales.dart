@@ -6,22 +6,29 @@ import 'package:portal_muni/app/scroll/custom_scroll.dart';
 import 'package:portal_muni/app/spinner/dual_ring.dart';
 import 'package:portal_muni/core/utils/device.dart';
 import 'package:portal_muni/core/utils/hexcolor.dart';
-import 'package:portal_muni/features/informe_cumplimiento/bloc/informe_cumplimiento_bloc.dart';
-import 'package:portal_muni/features/informe_cumplimiento/pages/registro_informes_cmp.dart';
-import 'package:portal_muni/features/informe_cumplimiento/widgets/ejecucion_item.dart';
-import 'package:portal_muni/features/informe_cumplimiento/widgets/filtro.dart';
+import 'package:portal_muni/features/informe_institucional/bloc/informe_institucional_bloc.dart';
+import 'package:portal_muni/features/informe_institucional/pages/registro_informe_institucional.dart';
+import 'package:portal_muni/features/informe_institucional/widgets/filtro.dart';
+import 'package:portal_muni/features/informe_institucional/widgets/informe_item.dart';
 
-class InformeAuditoria extends StatefulWidget {
-  const InformeAuditoria({super.key});
+class InformesEspecialesAuditoria extends StatefulWidget {
+  const InformesEspecialesAuditoria({
+    super.key,
+  });
 
   @override
-  State<InformeAuditoria> createState() => _InformeAuditoriaState();
+  State<InformesEspecialesAuditoria> createState() =>
+      _InformesEspecialesAuditoriaState();
 }
 
-class _InformeAuditoriaState extends State<InformeAuditoria> {
+class _InformesEspecialesAuditoriaState
+    extends State<InformesEspecialesAuditoria> {
   @override
   void initState() {
-    context.read<InformeCumplimientoBloc>().add(LoadRecomendacionesvt());
+    context
+        .read<InformeInstitucionalBloc>()
+        .add(LoadInformeEspecialAuditoriaEvt());
+
     super.initState();
   }
 
@@ -39,17 +46,18 @@ class _InformeAuditoriaState extends State<InformeAuditoria> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Informes de seguimiento a las recomendaciones'),
+        title: const Text('Informes especiales de auditoría'),
         actions: [
           RefreshIcon(
             onPressed: () {
-              BlocProvider.of<InformeCumplimientoBloc>(context)
-                  .add(LoadRecomendacionesvt());
+              context
+                  .read<InformeInstitucionalBloc>()
+                  .add(LoadInformeEspecialAuditoriaEvt());
             },
           )
         ],
       ),
-      body: BlocConsumer<InformeCumplimientoBloc, InformeCumplimientoState>(
+      body: BlocConsumer<InformeInstitucionalBloc, InformeInstitucionalState>(
         listener: (context, state) {
           if (state.react == React.deleteSuccess) {
             showAlertSuccess('Ok', 'Elemento eliminado!');
@@ -62,13 +70,13 @@ class _InformeAuditoriaState extends State<InformeAuditoria> {
           if (state.react == React.initial || state.react == React.getLoading) {
             return const Center(
               child: DualRing(
-                message: 'Cargando Planes',
+                message: 'Cargando Informes',
               ),
             );
           } else if (state.react == React.deleteLoading) {
             return const Center(
               child: DualRing(
-                message: 'Eliminado Plan',
+                message: 'Eliminado Informe',
               ),
             );
           }
@@ -80,7 +88,7 @@ class _InformeAuditoriaState extends State<InformeAuditoria> {
                   child: SizedBox(
                     width: Device.media(context),
                     child: const FiltrosBusqueda(
-                      tipo: 'Informes de seguimiento a las recomendaciones',
+                      type: 'Especial',
                     ),
                   ),
                 ),
@@ -89,13 +97,15 @@ class _InformeAuditoriaState extends State<InformeAuditoria> {
                 delegate: SliverChildBuilderDelegate(
                   (_, index) {
                     return CenterChildList(
-                      child: EjecucionItem(
+                      child: InformeItem(
                         nombre: state.filterList[index].nombre.split('.').first,
                         year: state.filterList[index].year,
                         onDelete: () {
-                          BlocProvider.of<InformeCumplimientoBloc>(context).add(
-                            DeleteInformeCumplimientoEvt(
-                                state.filterList[index].id),
+                          BlocProvider.of<InformeInstitucionalBloc>(context)
+                              .add(
+                            DeleteInformeInstitucionalEvt(
+                                state.filterList[index].id,
+                                state.filterList[index].tipo),
                           );
                         },
                       ),
@@ -115,8 +125,8 @@ class _InformeAuditoriaState extends State<InformeAuditoria> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const RegistroInformeCMPPage(
-                tipo: 'Informes de seguimiento a las recomendaciones',
+              builder: (context) => const RegistroInformeInstitucionalPage(
+                tipo: 'Especial',
               ),
             ),
           );

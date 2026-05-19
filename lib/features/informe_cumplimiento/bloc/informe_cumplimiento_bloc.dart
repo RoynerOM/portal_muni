@@ -19,6 +19,10 @@ class InformeCumplimientoBloc
       emit(InformeCumplimientoState().copyWith(state, react: React.getLoading));
       await cargarInformes(event, emit);
     });
+    on<LoadRecomendacionesvt>((event, emit) async {
+      emit(InformeCumplimientoState().copyWith(state, react: React.getLoading));
+      await cargarInformesAuditoria(event, emit);
+    });
 
     on<CreateInformeCumplimientoEvt>((event, emit) async {
       emit(
@@ -44,7 +48,7 @@ class InformeCumplimientoBloc
     });
   }
   //PLANIFICAION
-/*
+
   Future<void> cargarInformes(LoadInformeCumplimientoEvt evt, Emit emit) async {
     try {
       final list = await repository.getAll();
@@ -68,10 +72,11 @@ class InformeCumplimientoBloc
       emit(InformeCumplimientoState(react: React.getError));
     }
   }
-*/
+
 //RRHH
 
-  Future<void> cargarInformes(LoadInformeCumplimientoEvt evt, Emit emit) async {
+  Future<void> cargarInformesRRHH(
+      LoadInformeCumplimientoEvt evt, Emit emit) async {
     try {
       final list = await repository.getAll();
 
@@ -91,9 +96,8 @@ class InformeCumplimientoBloc
     }
   }
 
-//AUDITORIA
-/*
-  Future<void> cargarInformes(LoadInformeCumplimientoEvt evt, Emit emit) async {
+  Future<void> cargarInformesAuditoria(
+      LoadRecomendacionesvt evt, Emit emit) async {
     try {
       final list = await repository.getAll();
 
@@ -101,7 +105,7 @@ class InformeCumplimientoBloc
           .where((x) =>
               x.tipo.contains('Informes de seguimiento a las recomendaciones'))
           .toList();
-
+      filter.sort((a, b) => a.year.compareTo(b.year));
       emit(
         InformeCumplimientoState(
           react: React.getSuccess,
@@ -113,7 +117,7 @@ class InformeCumplimientoBloc
       emit(InformeCumplimientoState(react: React.getError));
     }
   }
-*/
+
   Future<void> filtros(FiltrosEvt evt, Emit emit) async {
     final nombreFiltro = evt.nombre.toLowerCase();
     final tipoFilter = evt.tipo.toLowerCase();

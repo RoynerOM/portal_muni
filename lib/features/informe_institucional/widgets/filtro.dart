@@ -6,18 +6,25 @@ import 'package:portal_muni/core/utils/hexcolor.dart';
 import 'package:portal_muni/features/informe_institucional/bloc/informe_institucional_bloc.dart';
 
 class FiltrosBusqueda extends StatefulWidget {
-  const FiltrosBusqueda({super.key});
+  final String type;
+  const FiltrosBusqueda({super.key, required this.type});
 
   @override
   State<FiltrosBusqueda> createState() => _FiltrosBusquedaState();
 }
 
 class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
-  final tipoController =
-      TextEditingController(text: 'Calificación de personal');
+  //Calificación de personal'
+  final tipoController = TextEditingController();
   final nombreController = TextEditingController();
-  final yearController =
-      TextEditingController(text: DateTime.now().year.toString());
+  final yearController = TextEditingController();
+
+  @override
+  void initState() {
+    tipoController.text = widget.type;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     bool media =
@@ -48,28 +55,29 @@ class _FiltrosBusquedaState extends State<FiltrosBusqueda> {
                 ),
               ),
               //Filtro Por Tipo
-              /*
-              Container(
-                width: media ? null : 350,
-                constraints: media
-                    ? null
-                    : const BoxConstraints(minWidth: 250, maxWidth: 350),
-                child: InputSelect(
-                  controller: tipoController,
-                  hintText: 'Buscar por tipo',
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                  ),
-                  options: [
-                    Option(value: 'Especial'),
-                    Option(value: 'Anual'),
-                    /*
-                    Option(value: 'Archivo'),
+              if (widget.type == 'Todos')
+                Container(
+                  width: media ? null : 350,
+                  constraints: media
+                      ? null
+                      : const BoxConstraints(minWidth: 250, maxWidth: 350),
+                  child: InputSelect(
+                    controller: tipoController,
+                    hintText: 'Buscar por tipo',
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                    options: [
+                      Option(value: 'Todos'),
+                      Option(value: 'Especial'),
+                      Option(value: 'Anual'),
+
+                      /*
                     Option(value: 'Calificación de personal')*/
-                  ],
-                  onChanged: (Option value) {},
+                    ],
+                    onChanged: (Option value) {},
+                  ),
                 ),
-              ),*/
               // Filtro por año
               Container(
                 width: media ? null : 350,

@@ -25,7 +25,7 @@ class Storage {
   set userEmail(String value) => _local.setString('user_email', value);
 
   // =========================
-  // 📦 MÉTODOS GENÉRICOS
+  //  MÉTODOS GENÉRICOS
   // =========================
 
   Future<void> setString(String key, String value) async {
@@ -53,7 +53,7 @@ class Storage {
   }
 
   // =========================
-  // 🧠 JSON (CLAVE PARA PERMISOS)
+  //  JSON (CLAVE PARA PERMISOS)
   // =========================
 
   Future<void> setJson(String key, Map<String, dynamic> value) async {
@@ -73,7 +73,7 @@ class Storage {
   }
 
   // =========================
-  // 🧹 UTILIDADES
+  // UTILIDADES
   // =========================
 
   Future<void> remove(String key) async {

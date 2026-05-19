@@ -12,8 +12,20 @@ import 'package:portal_muni/features/informe_cumplimiento/pages/registro_informe
 import 'package:portal_muni/features/informe_cumplimiento/widgets/ejecucion_item.dart';
 import 'package:portal_muni/features/informe_cumplimiento/widgets/filtro.dart';
 
-class InformesCumplimientos extends StatelessWidget {
+class InformesCumplimientos extends StatefulWidget {
   const InformesCumplimientos({super.key});
+
+  @override
+  State<InformesCumplimientos> createState() => _InformesCumplimientosState();
+}
+
+class _InformesCumplimientosState extends State<InformesCumplimientos> {
+  @override
+  void initState() {
+    BlocProvider.of<InformeCumplimientoBloc>(context)
+        .add(LoadInformeCumplimientoEvt());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +118,7 @@ class InformesCumplimientos extends StatelessWidget {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            constraints: const BoxConstraints(maxWidth: 800, maxHeight: 200),
+            constraints: const BoxConstraints(maxWidth: 800, maxHeight: 208),
             builder: (context) => ListView(
               children: [
                 SheetTile(

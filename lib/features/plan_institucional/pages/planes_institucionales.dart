@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portal_muni/app/buttons/refresh_icon.dart';
 import 'package:portal_muni/app/dialog/banner_ui.dart';
 import 'package:portal_muni/app/scroll/custom_scroll.dart';
 import 'package:portal_muni/app/spinner/dual_ring.dart';
@@ -29,6 +30,14 @@ class PlanesInstitucionales extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Planes Institucionales'),
+        actions: [
+          RefreshIcon(
+            onPressed: () {
+              BlocProvider.of<PlanInstitucionalBloc>(context)
+                  .add(LoadPlanInstitucionalEvt());
+            },
+          )
+        ],
       ),
       body: BlocConsumer<PlanInstitucionalBloc, PlanInstitucionalState>(
         listener: (context, state) {

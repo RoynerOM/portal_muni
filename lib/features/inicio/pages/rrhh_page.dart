@@ -24,7 +24,10 @@ class RrhhPage extends StatelessWidget {
             'Está disponible la evaluación del desempeño del personal en general (no individual)',
         icon: Icons.library_books,
         requiredRole: 'rrhh',
-        targetPage: const InformesInstitucionales(),
+        targetPage: const InformesInstitucionales(
+          title: 'Informes de calificación del personal',
+          type: 3,
+        ),
       ),
     ];
 

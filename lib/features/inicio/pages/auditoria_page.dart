@@ -23,7 +23,10 @@ class AuditoriaPage extends StatelessWidget {
         description: 'Evalúa la disponibilidad de informes de auditoría',
         icon: Icons.library_books,
         requiredRole: 'auditoria',
-        targetPage: const InformesInstitucionales(),
+        targetPage: const InformesInstitucionales(
+          title: 'Informes institucionales',
+          type: 0,
+        ),
       ),
     ];
 
